@@ -1,0 +1,2 @@
+# Ignore les credentials
+backend/src/main/resources/credentials/*.json

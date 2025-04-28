@@ -1,0 +1,203 @@
+/* src/components/Dashboard/AdminDashboard.css */
+
+.admin-dashboard {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  /* Header (identique à votre style existant) */
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: linear-gradient(135deg, #1c3c74 0%, #6ca6e2 100%);
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Contenu principal */
+  .dashboard-content {
+    flex: 1;
+    padding: 2rem;
+    background-color: #f5f7fa;
+  }
+  
+  .dashboard-header {
+    margin-bottom: 2rem;
+  }
+  
+  .dashboard-header h1 {
+    color: #1c3c74;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .dashboard-header p {
+    color: #666;
+  }
+  
+  /* Grille de statistiques */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .stat-card {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+  }
+  
+  .stat-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .stat-icon {
+    font-size: 2rem;
+    margin-right: 1.5rem;
+  }
+  
+  .stat-info h3 {
+    color: #666;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .stat-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1c3c74;
+    margin-bottom: 0.25rem;
+  }
+  
+  .stat-change {
+    font-size: 0.9rem;
+  }
+  
+  .stat-change.positive {
+    color: #4CAF50;
+  }
+  
+  /* Sections du dashboard */
+  .dashboard-sections {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+  }
+  
+  .dashboard-section {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .dashboard-section h2 {
+    color: #1c3c74;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #eee;
+  }
+  
+  /* Liste des activités */
+  .activities-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .activity-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  
+  .activity-item:last-child {
+    border-bottom: none;
+  }
+  
+  .activity-time {
+    color: #888;
+    font-size: 0.85rem;
+  }
+  
+  /* Actions rapides */
+  .quick-actions .actions-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .action-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    background: #f8fafc;
+    border-radius: 8px;
+    text-align: center;
+    color: #1c3c74;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+  
+  .action-card:hover {
+    background: #e6f0ff;
+    transform: translateY(-3px);
+  }
+  
+  .action-card span {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .action-card p {
+    font-weight: 500;
+  }
+  
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .dashboard-sections {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .quick-actions .actions-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .stats-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .header {
+      flex-direction: column;
+      padding: 1rem;
+    }
+    
+    .navbar {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    .nav-buttons {
+      margin-top: 1rem;
+    }
+  }

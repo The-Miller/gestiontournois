@@ -1,0 +1,47 @@
+/* Specific styles for Presentation page */
+.presentation-content {
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Layout styles */
+  .section-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .section-column {
+    flex: 1;
+    min-width: 300px;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+  
+  /* Ensure columns stack on smaller screens */
+  @media (max-width: 768px) {
+    .section-column {
+      max-width: 100%;
+      margin-bottom: 20px;
+    }
+  }
+  
+  .text-section {
+    text-align: center;
+  }
+  
+  .feature-list {
+    list-style-type: disc;
+    text-align: left;
+    margin: 0 auto 20px auto;
+    padding-left: 20px;
+    max-width: 600px;
+    font-size: 1.1rem;
+    color: #666;
+  }
+  
+  .feature-list li {
+    margin-bottom: 10px;
+  }
