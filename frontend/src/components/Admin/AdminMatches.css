@@ -1,0 +1,67 @@
+.dashboard-container {
+  display: flex;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+}
+
+.match-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.match-form input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.match-form button {
+  padding: 8px 16px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.match-form button:hover {
+  background: #0056b3;
+}
+
+.matches-list table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.matches-list th,
+.matches-list td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.matches-list th {
+  background: #f4f4f4;
+}
+
+.matches-list button {
+  margin-right: 5px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.matches-list button:first-child {
+  background: #28a745;
+  color: white;
+}
+
+.matches-list button:last-child {
+  background: #dc3545;
+  color: white;
+}

@@ -1,77 +1,126 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { getAllTournaments, deleteTournament } from '../../services/api/tournamentApi';
 import Sidebar from '../Sidebar/Sidebar';
+import { getAllTournaments, createTournament, updateTournament, deleteTournament } from '../../services/api/tournamentApi';
 import './AdminTournaments.css';
 
 const AdminTournaments = () => {
   const [tournaments, setTournaments] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
+  const [newTournament, setNewTournament] = useState({
+    nom: '',
+    date: '',
+    categorie: '',
+    status: 'UPCOMING',
+  });
+  const [editingId, setEditingId] = useState(null);
+  const [error, setError] = useState(null);
+
+  const fetchTournaments = async () => {
+    try {
+      const data = await getAllTournaments();
+      setTournaments(data);
+      setError(null);
+    } catch (err) {
+      console.error('Erreur lors de la récupération des tournois :', err);
+      setError('Impossible de charger les tournois. Veuillez vérifier votre connexion ou réessayer plus tard.');
+    }
+  };
 
   useEffect(() => {
-    const fetchTournaments = async () => {
-      try {
-        const response = await getAllTournaments(); // Appel API
-        setTournaments(response);
-      } catch (error) {
-        console.error('Erreur lors de la récupération des tournois', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchTournaments();
   }, []);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const tournamentData = {
+        nom: newTournament.nom,
+        date: newTournament.date,
+        categorie: newTournament.categorie,
+      };
+      if (editingId) {
+        await updateTournament(editingId, tournamentData);
+        setTournaments(tournaments.map(t => t.id === editingId ? { ...t, ...tournamentData } : t));
+        setEditingId(null);
+      } else {
+        const createdTournament = await createTournament(tournamentData);
+        setTournaments([...tournaments, createdTournament]);
+      }
+      setNewTournament({ nom: '', date: '', categorie: '', status: 'UPCOMING' });
+      setError(null);
+    } catch (err) {
+      console.error('Erreur lors de la création/mise à jour du tournoi :', err);
+      setError('Erreur lors de la création/mise à jour du tournoi. Veuillez vérifier votre connexion ou réessayer plus tard.');
+    }
+  };
+
+  const handleEdit = (tournament) => {
+    setNewTournament({
+      nom: tournament.nom,
+      date: tournament.date,
+      categorie: tournament.categorie,
+      status: tournament.status || 'UPCOMING',
+    });
+    setEditingId(tournament.id);
+  };
+
   const handleDelete = async (id) => {
     try {
-      await deleteTournament(id); // Appel API
-      setTournaments(tournaments.filter(tournament => tournament.id !== id));
-    } catch (error) {
-      console.error('Erreur lors de la suppression du tournoi', error);
+      await deleteTournament(id);
+      setTournaments(tournaments.filter(t => t.id !== id));
+      setError(null);
+    } catch (err) {
+      console.error('Erreur lors de la suppression du tournoi :', err);
+      setError('Erreur lors de la suppression du tournoi. Veuillez vérifier votre connexion ou réessayer plus tard.');
     }
   };
 
   return (
-    <div className="dashboard-container">
+    <div className="admin-tournaments">
       <Sidebar />
       <main className="content">
-        <h2>Gestion des Tournois</h2>
-        {loading ? (
-          <p>Chargement des tournois...</p>
-        ) : (
-          <>
-            <table className="tournaments-table">
-              <thead>
-                <tr>
-                  <th>Id</th>
-                  <th>Nom Tournoi</th>
-                  <th>Catégorie</th>
-                  <th>Date</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {tournaments.map(tournament => (
-                  <tr key={tournament.id}>
-                    <td>{tournament.id}</td>
-                    <td>{tournament.nom}</td>
-                    <td>{tournament.categorie}</td>
-                    <td>{tournament.date}</td>
-                    <td>
-                      <button className="btn btn-primary" onClick={() => navigate(`/admin/tournaments/edit/${tournament.id}`)}>Modifier</button>
-                      <button className="btn btn-danger" onClick={() => handleDelete(tournament.id)}>Supprimer</button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            <button className="btn btn-primary" onClick={() => navigate('/admin/tournaments/new')}>
-              Créer un Nouveau Tournoi
-            </button>
-          </>
-        )}
+        <h1>Gestion des Tournois</h1>
+        {error && <div className="error-message">{error}</div>}
+        <form onSubmit={handleSubmit} className="tournament-form">
+          <div>
+            <label>Nom du tournoi</label>
+            <input
+              type="text"
+              value={newTournament.nom}
+              onChange={(e) => setNewTournament({ ...newTournament, nom: e.target.value })}
+              required
+            />
+          </div>
+          <div>
+            <label>Date</label>
+            <input
+              type="date"
+              value={newTournament.date}
+              onChange={(e) => setNewTournament({ ...newTournament, date: e.target.value })}
+              required
+            />
+          </div>
+          <div>
+            <label>Catégorie</label>
+            <input
+              type="text"
+              value={newTournament.categorie}
+              onChange={(e) => setNewTournament({ ...newTournament, categorie: e.target.value })}
+              required
+            />
+          </div>
+          <button type="submit">{editingId ? 'Mettre à jour' : 'Créer Tournoi'}</button>
+          {editingId && <button type="button" onClick={() => { setEditingId(null); setNewTournament({ nom: '', date: '', categorie: '', status: 'UPCOMING' }); }}>Annuler</button>}
+        </form>
+        <h2>Liste des Tournois</h2>
+        <ul className="tournament-list">
+          {tournaments.map((tournament) => (
+            <li key={tournament.id}>
+              {tournament.nom} - {tournament.date} - {tournament.categorie} ({tournament.status || 'N/A'})
+              <button onClick={() => handleEdit(tournament)}>Modifier</button>
+              <button onClick={() => handleDelete(tournament.id)}>Supprimer</button>
+            </li>
+          ))}
+        </ul>
       </main>
     </div>
   );

@@ -1,25 +1,22 @@
-// src/services/api/config.js
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:8080', // ou '/api' si proxy Vite
+  baseURL: 'http://localhost:8080',
+  withCredentials: true, // Nécessaire pour envoyer les cookies/sessions
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
 
-// Ajoute automatiquement le token JWT dans les headers
-api.interceptors.request.use((config) => {
-  // Ne pas ajouter de token pour l'URL de login
-  if (config.url.includes('/utilisateurs/login')) {
-    return config;
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    console.error('Erreur lors de la requête :', error.response?.data || error.message);
+    if (error.response?.status === 401) {
+      console.error('Erreur 401 : Session invalide ou expirée');
+    }
+    return Promise.reject(error);
   }
-
-  const user = JSON.parse(localStorage.getItem('user'));
-  if (user && user.token) {
-    config.headers.Authorization = `Bearer ${user.token}`;
-  }
-
-  return config;
-}, (error) => {
-  return Promise.reject(error);
-});
+);
 
 export default api;

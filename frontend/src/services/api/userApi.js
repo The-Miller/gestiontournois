@@ -1,35 +1,59 @@
-import axios from 'axios';
-
-const API_URL = '/api/users';
+import api from './config';
 
 // Récupérer tous les utilisateurs
 export const getAllUsers = async () => {
-  const response = await api.get(API_URL);
-  return response.data;
+  try {
+    console.log('Récupération de tous les utilisateurs...');
+    const response = await api.get('/api/utilisateurs');
+    console.log('Réponse des utilisateurs :', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Erreur lors de la récupération des utilisateurs :', error.response?.data || error.message);
+    throw error;
+  }
 };
 
-// Récupérer utilisateur par Id
+// Récupérer un utilisateur par ID
+
 export const getUserById = async (id) => {
-  const response = await api.get(`${API_URL}/${id}`);
-  return response.data;
+  try {
+    const response = await api.get(`/api/utilisateurs/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error('Erreur lors de la récupération de l\'utilisateur :', error.response?.data || error.message);
+    throw error;
+  }
 };
+
 
 // Créer un utilisateur
 export const createUser = async (userData) => {
-  const response = await api.post(API_URL, userData);
-  return response.data;
+  try {
+    const response = await api.post('/api/users', userData);
+    return response.data;
+  } catch (error) {
+    console.error('Erreur lors de la création de l\'utilisateur :', error);
+    throw error;
+  }
 };
 
 // Modifier un utilisateur
 export const updateUser = async (id, userData) => {
-  const response = await api.put(`${API_URL}/${id}`, userData);
-  return response.data;
+  try {
+    const response = await api.put(`/api/users/${id}`, userData);
+    return response.data;
+  } catch (error) {
+    console.error(`Erreur lors de la mise à jour de l'utilisateur ${id} :`, error);
+    throw error;
+  }
 };
 
 // Supprimer un utilisateur
 export const deleteUser = async (id) => {
-    await axios.delete(`${API_URL}/${id}`);
-  };
-  
-
-
+  try {
+    await api.delete(`/api/users/${id}`);
+  } catch (error) {
+    console.error(`Erreur lors de la suppression de l'utilisateur ${id} :`, error);
+    throw error;
+  }
+};

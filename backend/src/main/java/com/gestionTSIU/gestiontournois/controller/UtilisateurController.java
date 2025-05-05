@@ -3,15 +3,16 @@ package com.gestionTSIU.gestiontournois.controller;
 import com.gestionTSIU.gestiontournois.dto.UtilisateurDto;
 import com.gestionTSIU.gestiontournois.model.Utilisateur;
 import com.gestionTSIU.gestiontournois.service.UtilisateurService;
-
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,22 +37,38 @@ public class UtilisateurController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> loginUtilisateur(@RequestBody Utilisateur utilisateur) {
+    public ResponseEntity<?> loginUtilisateur(@RequestBody Utilisateur utilisateur, HttpServletRequest request) {
+        System.out.println("Tentative de connexion pour l'email : " + utilisateur.getEmail());
         try {
             Utilisateur existingUser = utilisateurService.authenticate(utilisateur.getEmail(), utilisateur.getPassword());
+            System.out.println("Utilisateur trouvé dans la base : " + existingUser);
             if (existingUser != null) {
+                UserDetails userDetails = new User(existingUser.getEmail(), existingUser.getPassword(), List.of());
+                SecurityContextHolder.getContext().setAuthentication(
+                    new org.springframework.security.authentication.UsernamePasswordAuthenticationToken(
+                        userDetails, null, userDetails.getAuthorities()
+                    )
+                );
+
+                HttpSession session = request.getSession(true);
+                session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, 
+                    SecurityContextHolder.getContext());
+
                 UtilisateurDto userDto = new UtilisateurDto();
                 userDto.setId(existingUser.getId());
                 userDto.setEmail(existingUser.getEmail());
                 userDto.setNom(existingUser.getNom());
                 userDto.setPrenom(existingUser.getPrenom());
-                userDto.setRole(existingUser.getRole());
+                userDto.setRole(existingUser.getRole() != null ? existingUser.getRole() : "UTILISATEUR");
+                System.out.println("UtilisateurDto créé : " + userDto);
                 return ResponseEntity.ok(userDto);
             } else {
+                System.out.println("Aucun utilisateur trouvé avec les identifiants fournis.");
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                        .body("Échec de la connexion. Informations invalides.");
             }
         } catch (Exception e) {
+            System.out.println("Exception lors de la connexion : " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                    .body("Erreur serveur: " + e.getMessage());
         }
@@ -81,10 +98,14 @@ public class UtilisateurController {
         }
     }
 
-    // 👇 Ces méthodes doivent être DANS la classe !
     @GetMapping
     public List<Utilisateur> getAllUtilisateurs() {
-        return utilisateurService.getAllUtilisateurs();
+        try {
+            return utilisateurService.getAllUtilisateurs();
+        } catch (Exception e) {
+            System.out.println("Erreur lors de la récupération des utilisateurs : " + e.getMessage());
+            throw new RuntimeException("Erreur serveur : " + e.getMessage());
+        }
     }
 
     @GetMapping("/{id}")

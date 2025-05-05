@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthContext';
+import { getCurrentUser } from '../../services/api/authApi';
 
 interface PrivateRouteProps {
   requiredRole: string[];
@@ -9,14 +10,16 @@ interface PrivateRouteProps {
 
 const PrivateRoute = ({ requiredRole, children }: PrivateRouteProps) => {
   const { user } = useContext(AuthContext);
-  console.log('Vérification PrivateRoute - User:', user, 'Rôle requis:', requiredRole);
+  const currentUser = user || getCurrentUser();
 
-  if (!user) {
+  console.log('Vérification PrivateRoute - User:', currentUser, 'Rôle requis:', requiredRole);
+
+  if (!currentUser) {
     console.log('Redirection vers /connexion car aucun utilisateur connecté');
     return <Navigate to="/connexion" />;
   }
 
-  if (!requiredRole.includes(user.role)) {
+  if (!requiredRole.includes(currentUser.role)) {
     console.log('Redirection vers /dashboard car rôle invalide');
     return <Navigate to="/dashboard" />;
   }

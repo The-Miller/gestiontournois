@@ -19,14 +19,18 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     setError('');
-    
-    try {
-      const response = await login(email, password);
-      
-      if (response && response.role) {
-        setUser(response);
 
-        switch (response.role) {
+    try {
+      console.log('Tentative de connexion avec email :', email);
+      const response = await login(email, password);
+      console.log('Réponse du serveur :', response);
+      if (response && typeof response === 'object' && Object.keys(response).length > 0) {
+        const userData = response;
+        const userRole = userData.role || 'UTILISATEUR';
+        console.log('Données utilisateur :', userData);
+        setUser(userData);
+        localStorage.setItem('user', JSON.stringify(userData));
+        switch (userRole.toUpperCase()) {
           case 'ADMINISTRATEUR':
             navigate('/admin/dashboard');
             break;
@@ -41,13 +45,14 @@ const Login = () => {
             break;
         }
       } else {
-        throw new Error("Réponse du serveur invalide");
+        throw new Error('Réponse du serveur invalide : données manquantes');
       }
     } catch (err) {
+      console.error('Erreur lors de la connexion :', err.response?.data || err.message);
       setError(
         err.response?.data?.message ||
         err.message ||
-        "Identifiants incorrects ou problème de connexion"
+        'Identifiants incorrects ou problème de connexion'
       );
     } finally {
       setLoading(false);
@@ -65,9 +70,9 @@ const Login = () => {
             <h2>Connexion à votre compte</h2>
             <p>Gérez vos tournois universitaires en toute simplicité</p>
           </div>
-          
+
           {error && <div className="auth-error">{error}</div>}
-          
+
           <form onSubmit={handleSubmit} className="auth-form">
             <div className="form-group">
               <label htmlFor="email">Adresse email</label>
@@ -80,7 +85,7 @@ const Login = () => {
                 placeholder="votre@email.com"
               />
             </div>
-            
+
             <div className="form-group">
               <label htmlFor="password">Mot de passe</label>
               <input
@@ -92,7 +97,7 @@ const Login = () => {
                 placeholder="••••••••"
               />
             </div>
-            
+
             <div className="form-options">
               <div className="remember-me">
                 <input type="checkbox" id="remember" />
@@ -102,12 +107,12 @@ const Login = () => {
                 Mot de passe oublié ?
               </Link>
             </div>
-            
+
             <button type="submit" className="auth-button" disabled={loading}>
               {loading ? 'Connexion en cours...' : 'Se connecter'}
             </button>
           </form>
-          
+
           <div className="auth-footer">
             <p>
               Pas encore de compte ? <Link to="/inscription">S'inscrire</Link>

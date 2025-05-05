@@ -13,53 +13,83 @@ public class UtilisateurService {
     @Autowired
     private UtilisateurRepository utilisateurRepository;
 
-    // Méthode pour créer un nouvel utilisateur (Inscription)
     public Utilisateur createUtilisateur(Utilisateur utilisateur) {
-        // Vérifiez si l'utilisateur existe déjà par email
-        if (utilisateurRepository.existsByEmail(utilisateur.getEmail())) {
-            throw new RuntimeException("Cet email est déjà utilisé.");
+        try {
+            return utilisateurRepository.save(utilisateur);
+        } catch (Exception e) {
+            System.out.println("Erreur lors de la création de l'utilisateur : " + e.getMessage());
+            throw new RuntimeException("Erreur lors de la création de l'utilisateur : " + e.getMessage());
         }
-        return utilisateurRepository.save(utilisateur);
     }
 
-    // Méthode pour authentifier un utilisateur (Connexion)
     public Utilisateur authenticate(String email, String password) {
-        // Chercher l'utilisateur par email et vérifier le mot de passe
-        Utilisateur utilisateur = utilisateurRepository.findByEmail(email);
-        if (utilisateur != null && utilisateur.getPassword().equals(password)) {
-            return utilisateur;
+        try {
+            Utilisateur utilisateur = utilisateurRepository.findByEmail(email);
+            if (utilisateur != null && utilisateur.getPassword().equals(password)) {
+                return utilisateur;
+            }
+            return null;
+        } catch (Exception e) {
+            System.out.println("Erreur lors de l'authentification : " + e.getMessage());
+            throw new RuntimeException("Erreur lors de l'authentification : " + e.getMessage());
         }
-        return null; // Retourne null si l'authentification échoue
     }
 
     public List<Utilisateur> getAllUtilisateurs() {
-        return utilisateurRepository.findAll();
+        try {
+            System.out.println("Récupération de tous les utilisateurs...");
+            List<Utilisateur> utilisateurs = utilisateurRepository.findAll();
+            System.out.println("Nombre d'utilisateurs récupérés : " + utilisateurs.size());
+            return utilisateurs;
+        } catch (Exception e) {
+            System.out.println("Erreur lors de la récupération des utilisateurs : " + e.getMessage());
+            e.printStackTrace();
+            throw new RuntimeException("Erreur lors de la récupération des utilisateurs : " + e.getMessage());
+        }
     }
 
     public Utilisateur getUtilisateurById(Long id) {
-        return utilisateurRepository.findById(id).orElse(null);
+        try {
+            return utilisateurRepository.findById(id).orElse(null);
+        } catch (Exception e) {
+            System.out.println("Erreur lors de la récupération de l'utilisateur avec ID " + id + " : " + e.getMessage());
+            throw new RuntimeException("Erreur lors de la récupération de l'utilisateur : " + e.getMessage());
+        }
     }
 
-    public Utilisateur updateUtilisateur(Long id, Utilisateur utilisateurDetails) {
-        Utilisateur utilisateur = getUtilisateurById(id);
-        if (utilisateur != null) {
-            utilisateur.setNom(utilisateurDetails.getNom());
-            utilisateur.setPrenom(utilisateurDetails.getPrenom());
-            utilisateur.setEmail(utilisateurDetails.getEmail());
-            utilisateur.setPassword(utilisateurDetails.getPassword());
-            utilisateur.setRole(utilisateurDetails.getRole());
-            return utilisateurRepository.save(utilisateur);
+    public Utilisateur updateUtilisateur(Long id, Utilisateur utilisateur) {
+        try {
+            Utilisateur existingUtilisateur = utilisateurRepository.findById(id).orElse(null);
+            if (existingUtilisateur != null) {
+                existingUtilisateur.setNom(utilisateur.getNom());
+                existingUtilisateur.setPrenom(utilisateur.getPrenom());
+                existingUtilisateur.setEmail(utilisateur.getEmail());
+                existingUtilisateur.setPassword(utilisateur.getPassword());
+                existingUtilisateur.setRole(utilisateur.getRole());
+                return utilisateurRepository.save(existingUtilisateur);
+            }
+            return null;
+        } catch (Exception e) {
+            System.out.println("Erreur lors de la mise à jour de l'utilisateur avec ID " + id + " : " + e.getMessage());
+            throw new RuntimeException("Erreur lors de la mise à jour de l'utilisateur : " + e.getMessage());
         }
-        return null;
     }
 
     public void deleteUtilisateur(Long id) {
-        utilisateurRepository.deleteById(id);
+        try {
+            utilisateurRepository.deleteById(id);
+        } catch (Exception e) {
+            System.out.println("Erreur lors de la suppression de l'utilisateur avec ID " + id + " : " + e.getMessage());
+            throw new RuntimeException("Erreur lors de la suppression de l'utilisateur : " + e.getMessage());
+        }
     }
 
     public Utilisateur createUser(Utilisateur user) {
-        // Ajoutez la logique pour définir le rôle et sauvegarder l'utilisateur
-        user.setRole(user.getRole()); // Définir le rôle, par exemple 'CommunityManager'
-        return utilisateurRepository.save(user);
+        try {
+            return utilisateurRepository.save(user);
+        } catch (Exception e) {
+            System.out.println("Erreur lors de la création de l'utilisateur : " + e.getMessage());
+            throw new RuntimeException("Erreur lors de la création de l'utilisateur : " + e.getMessage());
+        }
     }
 }

@@ -1,0 +1,42 @@
+.dashboard-container {
+  display: flex;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+}
+
+.reservations-list table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.reservations-list th,
+.reservations-list td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.reservations-list th {
+  background: #f4f4f4;
+}
+
+.reservations-list select,
+.reservations-list button {
+  margin-right: 5px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.reservations-list select {
+  border: 1px solid #ccc;
+}
+
+.reservations-list button {
+  background: #dc3545;
+  color: white;
+}

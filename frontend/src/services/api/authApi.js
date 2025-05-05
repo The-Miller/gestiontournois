@@ -1,30 +1,47 @@
-import api from "./config";
+import api from './config';
 
 export const login = async (email, password) => {
-  const response = await api.post("/api/utilisateurs/login", { email, password });
-  const data = response.data;
-  if (data?.token) {
-    api.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
-    localStorage.setItem("token", data.token);
-    localStorage.setItem("user", JSON.stringify(data));
+  try {
+    console.log('Données envoyées au login :', { email, password });
+    const response = await api.post('/api/utilisateurs/login', { email, password });
+    console.log('Réponse du serveur :', response.data);
+    if (response.data) {
+      localStorage.setItem('user', JSON.stringify(response.data));
+      return response.data;
+    }
+    throw new Error('Échec de l\'authentification');
+  } catch (error) {
+    console.error('Erreur de connexion :', error.response?.data || error.message);
+    throw error;
   }
-  return data;
 };
 
 export const register = async (userData) => {
-  const response = await api.post("/api/utilisateurs/register", userData);
-  return response.data;
-};
-
-export const logout = async () => {
-  await api.post("/api/utilisateurs/logout");
-  localStorage.removeItem("token");
-  localStorage.removeItem("user");
-  delete api.defaults.headers.common["Authorization"];
-  window.location.href = "/connexion";
+  try {
+    const response = await api.post('/api/utilisateurs/register', userData);
+    return response.data;
+  } catch (error) {
+    console.error('Erreur d\'inscription :', error.response?.data || error.message);
+    throw error;
+  }
 };
 
 export const getCurrentUser = () => {
-  const user = localStorage.getItem("user");
-  return user ? JSON.parse(user) : null;
+  try {
+    const user = localStorage.getItem('user');
+    return user ? JSON.parse(user) : null;
+  } catch (error) {
+    console.error('Erreur de récupération de l\'utilisateur :', error.message);
+    return null;
+  }
+};
+
+export const logout = async () => {
+  try {
+    await api.post('/api/utilisateurs/logout');
+    localStorage.removeItem('user');
+  } catch (error) {
+    console.error('Erreur de déconnexion :', error.response?.data || error.message);
+    throw error;
+  }
 };

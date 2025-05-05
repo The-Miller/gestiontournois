@@ -19,6 +19,12 @@ export const createTournament = async (tournamentData) => {
   return response.data;
 };
 
+// Modifier un nouveau tournoi
+export const updateTournament = async (id, tournamentData) => {
+  const response = await api.put(`/api/tournaments/${id}`, tournamentData);
+  return response.data;
+};
+
 // Supprimer un tournoi
 export const deleteTournament = async (id) => {
   await api.delete(`/api/tournaments/${id}`);

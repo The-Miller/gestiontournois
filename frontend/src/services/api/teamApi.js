@@ -1,21 +1,27 @@
 import api from "./config";
 
-export const getAllTeams = async () => {
+export const getAllEquipes = async () => {
   const response = await api.get("/api/teams");
   return response.data;
 };
 
-export const getTeamById = async (id) => {
+export const getEquipeById = async (id) => {
   const response = await api.get(`/api/teams/${id}`);
   return response.data;
 };
 
-export const createTeam = async (teamData) => {
+export const createEquipe = async (teamData) => {
   const response = await api.post("/api/teams", teamData);
   return response.data;
 };
 
-export const updateTeam = async (id, teamData) => {
+// Mettre à jour une équipe existante
+export const updateEquipe = async (id, equipeData) => {
+  const response = await api.put(`/api/teams/${id}`, equipeData);
+  return response.data;
+};
+
+export const deleteEquipe = async (id, teamData) => {
   const response = await api.put(`/api/teams/${id}`, teamData);
   return response.data;
 };
@@ -42,3 +48,4 @@ export const updateTeamMember = async (teamId, memberId, member) => {
 export const deleteTeamMember = async (teamId, memberId) => {
   await api.delete(`/api/teams/${teamId}/members/${memberId}`);
 };
+
