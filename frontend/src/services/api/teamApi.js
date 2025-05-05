@@ -15,18 +15,12 @@ export const createEquipe = async (teamData) => {
   return response.data;
 };
 
-// Mettre à jour une équipe existante
 export const updateEquipe = async (id, equipeData) => {
   const response = await api.put(`/api/teams/${id}`, equipeData);
   return response.data;
 };
 
-export const deleteEquipe = async (id, teamData) => {
-  const response = await api.put(`/api/teams/${id}`, teamData);
-  return response.data;
-};
-
-export const deleteTeam = async (id) => {
+export const deleteEquipe = async (id) => {
   await api.delete(`/api/teams/${id}`);
 };
 
@@ -49,3 +43,7 @@ export const deleteTeamMember = async (teamId, memberId) => {
   await api.delete(`/api/teams/${teamId}/members/${memberId}`);
 };
 
+export const getAllTournaments = async () => {
+  const response = await api.get("/api/tournaments");
+  return response.data;
+};
