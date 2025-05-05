@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/matches")
-@CrossOrigin(origins = "http://localhost:4200") // Autoriser les requêtes CORS depuis l'application Angular
+@CrossOrigin(origins = "http://localhost:5173") // Autoriser les requêtes CORS depuis l'application Angular
 public class MatchController {
 
     @Autowired

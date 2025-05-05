@@ -1,26 +1,27 @@
-// src/components/Auth/PrivateRoute.tsx
-import React from 'react';
+import React, { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
-import { getCurrentUser } from '../../services/api';
+import { AuthContext } from '../../contexts/AuthContext';
 
 interface PrivateRouteProps {
+  requiredRole: string[];
   children: React.ReactNode;
-  requiredRole?: string;
 }
 
-const PrivateRoute: React.FC<PrivateRouteProps> = ({ children, requiredRole }) => {
-  const user = getCurrentUser();
+const PrivateRoute = ({ requiredRole, children }: PrivateRouteProps) => {
+  const { user } = useContext(AuthContext);
+  console.log('Vérification PrivateRoute - User:', user, 'Rôle requis:', requiredRole);
 
   if (!user) {
-    return <Navigate to="/connexion" replace />;
+    console.log('Redirection vers /connexion car aucun utilisateur connecté');
+    return <Navigate to="/connexion" />;
   }
 
-  if (requiredRole && user.role !== requiredRole) {
-    return <Navigate to="/unauthorized" replace />;
+  if (!requiredRole.includes(user.role)) {
+    console.log('Redirection vers /dashboard car rôle invalide');
+    return <Navigate to="/dashboard" />;
   }
 
   return <>{children}</>;
 };
 
-// Export par défaut correct
 export default PrivateRoute;

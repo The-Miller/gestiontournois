@@ -8,85 +8,7 @@
     width: 100%;
   }
   
-  /* Styles du header et navbar - correspondant à votre style global */
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    background: linear-gradient(135deg, #1c3c74 0%, #6ca6e2 100%);
-    color: white;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  
-  .logo-container img {
-    height: 50px;
-    width: auto;
-    transition: transform 0.3s ease;
-  }
-  
-  .logo-container img:hover {
-    transform: scale(1.05);
-  }
-  .navbar {
-    display: flex;
-    gap: 2rem;
-  }
-  
-  .navbar a {
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 1rem;
-    transition: color 0.3s ease;
-    position: relative;
-    padding: 0.5rem 0;
-  }
-  
-  .navbar a:hover {
-    color: #4CAF50;
-  }
-  
-  .navbar a.active {
-    color: #4CAF50;
-  }
-  
-  .navbar a::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: #4CAF50;
-    transition: width 0.3s ease;
-  }
-  
-  .navbar a:hover::after,
-  .navbar a.active::after {
-    width: 100%;
-  }
-  
-  .nav-buttons {
-    display: flex;
-    gap: 1rem;
-  }
-  
-  .btn {
-    padding: 0.5rem 1.5rem;
-    border-radius: 4px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s ease;
-  }
- 
-  
- 
-  
+
   /* Container du formulaire avec image de fond */
   .auth-container {
     position: relative;
@@ -168,6 +90,7 @@
   }
   
   .form-group input {
+    color: black;
     width: 100%;
     padding: 12px;
     border: 1px solid #ddd;

@@ -1,20 +1,31 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { getCurrentUser, logout } from '../../services/api';
-import './CommunityDashboard.css';
+import React, { useState, useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthContext';
+import Sidebar from '../Sidebar/Sidebar';
+import './CommunityManagerDashboard.css';
 
 const CommunityDashboard = () => {
+  const { user } = useContext(AuthContext);
   const [posts, setPosts] = useState([]);
   const [post, setPost] = useState({ titre: '', texte: '', photo: null });
   const [editMode, setEditMode] = useState(false);
   const [selectedPost, setSelectedPost] = useState(null);
   const navigate = useNavigate();
-  const user = getCurrentUser();
 
-  if (!user || user.role !== 'CommunityManager') {
-    navigate('/connexion');
-    return null;
-  }
+  // Vérification de l'utilisateur dans useEffect
+  useEffect(() => {
+    console.log('useEffect exécuté - User:', user);
+    if (!user) {
+      console.log('Redirection vers /connexion car aucun utilisateur');
+      navigate('/connexion');
+      return;
+    }
+    if (user.role !== 'COMMUNITY_MANAGER') {
+      console.log('Redirection vers /dashboard car rôle invalide:', user.role);
+      navigate('/dashboard');
+      return;
+    }
+  }, [navigate, user]);
 
   const handleFileChange = (e) => {
     setPost({ ...post, photo: e.target.files[0] });
@@ -22,7 +33,6 @@ const CommunityDashboard = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Ici vous enverriez le post au backend
     const newPost = {
       id: Date.now(),
       titre: post.titre,
@@ -38,8 +48,9 @@ const CommunityDashboard = () => {
     setSelectedPost(post);
   };
 
-  const handleUpdate = () => {
-    // Logique de mise à jour
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    setPosts(posts.map(p => p.id === selectedPost.id ? selectedPost : p));
     setEditMode(false);
     setSelectedPost(null);
   };
@@ -48,35 +59,22 @@ const CommunityDashboard = () => {
     setPosts(posts.filter(post => post.id !== id));
   };
 
-  const handleLogout = async () => {
-    await logout();
-    navigate('/connexion');
-  };
+  // Ne rien afficher tant qu'on n'a pas confirmé le rôle
+  if (!user || user.role !== 'COMMUNITY_MANAGER') return null;
 
   return (
     <div className="dashboard-community">
-      <aside className="sidebar">
-        <div className="logo-container">
-          <h2>Community Dashboard</h2>
-        </div>
-        <nav className="sidebar-menu">
-          <ul>
-            <li><Link to="/community/posts"><i className="fa fa-newspaper-o"></i> Gestion des Posts</Link></li>
-            <li><button onClick={handleLogout} className="logout-btn"><i className="fa fa-sign-out"></i> Déconnexion</button></li>
-          </ul>
-        </nav>
-      </aside>
-
+      <Sidebar />
       <main className="content">
         <h1>Gestion des Posts</h1>
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label>Titre</label>
-            <input 
-              type="text" 
+            <input
+              type="text"
               value={post.titre}
-              onChange={(e) => setPost({...post, titre: e.target.value})}
+              onChange={(e) => setPost({ ...post, titre: e.target.value })}
               required
             />
           </div>
@@ -88,9 +86,9 @@ const CommunityDashboard = () => {
 
           <div className="form-group">
             <label>Texte de Commentaire</label>
-            <textarea 
+            <textarea
               value={post.texte}
-              onChange={(e) => setPost({...post, texte: e.target.value})}
+              onChange={(e) => setPost({ ...post, texte: e.target.value })}
               required
             />
           </div>
@@ -99,7 +97,7 @@ const CommunityDashboard = () => {
         </form>
 
         <h2>Posts Existants</h2>
-        {posts.map(post => (
+        {posts.map((post) => (
           <div key={post.id} className="post">
             <h3>{post.titre}</h3>
             {post.photo && <img src={post.photo} alt="Post" />}
@@ -113,19 +111,25 @@ const CommunityDashboard = () => {
           <div className="edit-form">
             <h2>Modifier le Post</h2>
             <form onSubmit={handleUpdate}>
-              <input
-                type="text"
-                value={selectedPost?.titre || ''}
-                onChange={(e) => setSelectedPost({...selectedPost, titre: e.target.value})}
-                required
-              />
-              <textarea
-                value={selectedPost?.texte || ''}
-                onChange={(e) => setSelectedPost({...selectedPost, texte: e.target.value})}
-                required
-              />
-              <button type="submit">Enregistrer</button>
-              <button type="button" onClick={() => setEditMode(false)}>Annuler</button>
+              <div className="form-group">
+                <label>Titre</label>
+                <input
+                  type="text"
+                  value={selectedPost?.titre || ''}
+                  onChange={(e) => setSelectedPost({ ...selectedPost, titre: e.target.value })}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Texte de Commentaire</label>
+                <textarea
+                  value={selectedPost?.texte || ''}
+                  onChange={(e) => setSelectedPost({ ...selectedPost, texte: e.target.value })}
+                  required
+                />
+              </div>
+              <button type="submit" className="btn btn-primary">Enregistrer</button>
+              <button type="button" onClick={() => setEditMode(false)} className="btn btn-secondary">Annuler</button>
             </form>
           </div>
         )}

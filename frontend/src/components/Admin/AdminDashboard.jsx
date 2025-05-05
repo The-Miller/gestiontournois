@@ -1,99 +1,55 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { getCurrentUser, logout } from '../../services/api';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { getAllTournaments } from '../../services/api/tournamentApi'; 
+import Sidebar from '../Sidebar/Sidebar';
 import './AdminDashboard.css';
 
 const AdminDashboard = () => {
-  const [tournaments, setTournaments] = useState([]);
+  const [tournaments, setTournaments] = useState([]);  // Initialisation en tant que tableau vide
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  const user = getCurrentUser();
 
   useEffect(() => {
-    if (!user || user.role !== 'Administrateur') {
-      navigate('/connexion');
-      return;
-    }
-
-    // Simuler le chargement des tournois
     const fetchTournaments = async () => {
       try {
-        // Ici vous feriez un appel API réel
-        const mockTournaments = [
-          { id: 1, nom: 'Tournoi Université', categorie: 'Football', date: '2023-10-15' },
-          { id: 2, nom: 'Championnat Interne', categorie: 'Basketball', date: '2023-11-20' }
-        ];
-        setTournaments(mockTournaments);
+        const response = await getAllTournaments();
+        if (Array.isArray(response)) {
+          setTournaments(response);
+        } else {
+          console.error('La réponse de l\'API n\'est pas un tableau:', response);
+        }
       } catch (error) {
-        console.error('Error fetching tournaments:', error);
+        console.error('Erreur lors de la récupération des tournois:', error);
       } finally {
         setLoading(false);
       }
     };
-
     fetchTournaments();
-  }, [navigate, user]);
-
-  const handleLogout = async () => {
-    await logout();
-    navigate('/connexion');
-  };
+  }, []);
 
   return (
     <div className="dashboard-container">
-      <aside className="sidebar">
-        <div className="logo-container">
-          <h2>Admin Dashboard</h2>
-        </div>
-        <nav className="sidebar-menu">
-          <ul>
-            <li><Link to="/admin/tournaments"><i className="fa fa-trophy"></i> Gestion des Tournois</Link></li>
-            <li><Link to="/admin/teams"><i className="fa fa-users"></i> Gestion des Équipes</Link></li>
-            <li><Link to="/admin/matches"><i className="fa fa-life-ring"></i> Matchs & Résultats</Link></li>
-            <li><button onClick={handleLogout} className="logout-btn"><i className="fa fa-sign-out"></i> Déconnexion</button></li>
-          </ul>
-        </nav>
-      </aside>
-
+      <Sidebar />
       <main className="content">
-        <div className="tournaments-management">
-          <h2>Gestion des Tournois</h2>
-          
-          {loading ? (
-            <p>Chargement en cours...</p>
-          ) : (
-            <>
-              <table className="tournaments-table">
-                <thead>
-                  <tr>
-                    <th>Id</th>
-                    <th>Nom Tournoi</th>
-                    <th>Catégorie</th>
-                    <th>Date</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {tournaments.map(tournament => (
-                    <tr key={tournament.id}>
-                      <td>{tournament.id}</td>
-                      <td>{tournament.nom}</td>
-                      <td>{tournament.categorie}</td>
-                      <td>{tournament.date}</td>
-                      <td>
-                        <button className="btn btn-primary">Modifier</button>
-                        <button className="btn btn-danger">Supprimer</button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-              <button className="btn btn-primary" onClick={() => navigate('/admin/tournaments/new')}>
-                Créer un nouveau Tournoi
-              </button>
-            </>
-          )}
-        </div>
+        <h2>Tableau de bord Admin</h2>
+        {loading ? (
+          <p>Chargement des tournois...</p>
+        ) : (
+          <div className="stats">
+            <h3>Tournois</h3>
+            {Array.isArray(tournaments) && tournaments.length > 0 ? (
+              <ul>
+                {tournaments.map(tournament => (
+                  <li key={tournament.id}>
+                    {tournament.nom} - {tournament.categorie}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p>Aucun tournoi trouvé.</p>
+            )}
+          </div>
+        )}
       </main>
     </div>
   );

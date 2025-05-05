@@ -1,5 +1,6 @@
 import React from 'react';
 import './Home.css';
+import Navbar from '../Navbar/Navbar';
 import toornamentLogo from '../../assets/toornament.png';
 import homeImage from '../../assets/hame.avif';
 import tournamentImage from '../../assets/tourn.png';
@@ -10,23 +11,7 @@ import niangPhoto from '../../assets/bouba.jpg';
 const Home = () => {
   return (
     <div className="home-container">
-      {/* Header Section */}
-      <header className="header">
-        <div className="logo-container">
-          <img src={toornamentLogo} alt="Logo Toornament" className="toornament-logo" />
-        </div>
-        <nav className="navbar">
-          <a href="/">Accueil</a>
-          <a href="/presentation">Présentation</a>
-          <a href="/fil-actualite">Fil d'actualité</a>
-          <a href="/tournois">Tournois</a>
-          <a href="/contact">Contact</a>
-          <div className="nav-buttons">
-            <a href="/inscription" className="btn btn-signup">Inscription</a>
-            <a href="/connexion" className="btn btn-login">Connexion</a>
-          </div>
-        </nav>
-      </header>
+     <Navbar />
 
       {/* Section 1 */}
       <div className="content-section">
@@ -34,7 +19,9 @@ const Home = () => {
           <div className="section-column text-section">
             <img src={toornamentLogo} alt="Toornament Title" className="toornament-title-image" />
             <p className="description">
-              Toornament est un outil en ligne conçu pour faciliter l'organisation de tournois universitaires. Il permet de gérer divers aspects d'un tournoi, tels que l'inscription des équipes, la planification des matchs et la saisie des scores. Toornament propose plusieurs formats de tournoi, comme les poules, les phases éliminatoires ou les matchs simples, avec une interface de planification des matchs.
+              Toornament est un outil en ligne conçu pour faciliter l'organisation de tournois universitaires. 
+              Il permet de gérer divers aspects d'un tournoi, tels que l'inscription des équipes, la planification des matchs et la saisie des scores. 
+              Toornament propose plusieurs formats de tournoi, comme les poules, les phases éliminatoires ou les matchs simples, avec une interface de planification des matchs.
             </p>
           </div>
           <div className="section-column image-section">
@@ -77,7 +64,7 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Testimonial Section */}
+      {/* Témoignages */}
       <div className="testimonial-section">
         <h2 className="testimonial-title">Ce qu'ils en disent</h2>
         <p className="testimonial-subtitle">Découvrez toutes les raisons qui motivent nos clients à nous recommander</p>
@@ -111,7 +98,7 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Chat Button */}
+      {/* Bouton de chat */}
       <div className="chat-button">
         <button>Chat</button>
       </div>

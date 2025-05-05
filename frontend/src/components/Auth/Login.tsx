@@ -1,12 +1,14 @@
-// src/components/Auth/Login.tsx
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { login } from '../../services/api';
+import { login } from '../../services/api/authApi';
+import { AuthContext } from '../../contexts/AuthContext';
 import './auth.css';
 import toornament from '../../assets/toornament.png';
 import background from '../../assets/football.webp';
+import Navbar from '../Navbar/Navbar';
 
 const Login = () => {
+  const { setUser } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -21,15 +23,22 @@ const Login = () => {
     try {
       const response = await login(email, password);
       
-      // Vérifiez que la réponse contient bien des données
       if (response && response.role) {
-        // Redirection basée sur le rôle
-        if (response.role === 'Administrateur') {
-          navigate('/admin/dashboard');
-        } else if (response.role === 'CommunityManager') {
-          navigate('/manager/dashboard'); 
-        } else {
-          navigate('/dashboard');
+        setUser(response);
+
+        switch (response.role) {
+          case 'ADMINISTRATEUR':
+            navigate('/admin/dashboard');
+            break;
+          case 'COMMUNITY_MANAGER':
+            navigate('/manager/dashboard');
+            break;
+          case 'UTILISATEUR':
+            navigate('/user/dashboard');
+            break;
+          default:
+            navigate('/dashboard');
+            break;
         }
       } else {
         throw new Error("Réponse du serveur invalide");
@@ -47,25 +56,7 @@ const Login = () => {
 
   return (
     <div className="auth-page">
-      {/* Header avec Navbar */}
-      <header className="header">
-        <div className="logo-container">
-          <img src={toornament} alt="Logo Toornament" className="toornament-logo" />
-        </div>
-        <nav className="navbar">
-          <Link to="/">Accueil</Link>
-          <Link to="/presentation">Présentation</Link>
-          <Link to="/fil-actualite">Fil d'actualité</Link>
-          <Link to="/tournois">Tournois</Link>
-          <Link to="/contact">Contact</Link>
-          <div className="nav-buttons">
-            <Link to="/inscription" className="btn btn-signup">Inscription</Link>
-            <Link to="/connexion" className="btn btn-login">Connexion</Link>
-          </div>
-        </nav>
-      </header>
-
-      {/* Container du formulaire de connexion avec l'image de fond */}
+      <Navbar />
       <div className="auth-container" style={{ backgroundImage: `url(${background})` }}>
         <div className="auth-overlay"></div>
         <div className="auth-card">

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { register } from '../../services/api';
+import { register } from '../../services/api/authApi';
 import './auth.css';
 import toornament from '../../assets/toornament.png';
 import background from '../../assets/football.webp';
+import Navbar from '../Navbar/Navbar';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -75,22 +76,7 @@ const Register = () => {
   return (
     <div className="auth-page">
       {/* Header with Navbar */}
-      <header className="header">
-        <div className="logo-container">
-          <img src={toornament} alt="Logo Toornament" className="toornament-logo" />
-        </div>
-        <nav className="navbar">
-          <Link to="/">Accueil</Link>
-          <Link to="/presentation">Présentation</Link>
-          <Link to="/fil-actualite">Fil d'actualité</Link>
-          <Link to="/tournois">Tournois</Link>
-          <Link to="/contact">Contact</Link>
-          <div className="nav-buttons">
-            <Link to="/inscription" className="btn btn-signup">Inscription</Link>
-            <Link to="/connexion" className="btn btn-login">Connexion</Link>
-          </div>
-        </nav>
-      </header>
+      <Navbar />
 
       {/* Registration Form Container */}
       <div className="auth-container" style={{ backgroundImage: `url(${background})` }}>

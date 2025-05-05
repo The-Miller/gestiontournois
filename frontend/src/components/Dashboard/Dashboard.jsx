@@ -1,15 +1,27 @@
-// src/components/Dashboard/Dashboard.jsx
-import React from 'react';
-import './Dashboard.css'; // Assurez-vous que ce fichier existe
+import React, { useContext } from 'react';
+import { AuthContext } from '../../contexts/AuthContext';
+import { Navigate } from 'react-router-dom';
+import AdminDashboard from '../Admin/AdminDashboard';
+import CommunityManager from '../CommunityManager/CommunityManagerDashboard';
+import SuperAdminDashboard from '../SuperAdmin/SuperAdminDashboard';
 
 const Dashboard = () => {
-  return (
-    <div className="dashboard">
-      <h1>Tableau de bord</h1>
-      {/* Ajoutez votre contenu ici */}
-    </div>
-  );
+  const { user } = useContext(AuthContext);
+
+  if (!user) {
+    return <Navigate to="/connexion" />;
+  }
+
+  switch (user.role) {
+    case 'ADMINISTRATEUR':
+      return <AdminDashboard />;
+    case 'COMMUNITY_MANAGER':
+      return <CommunityManager />;
+    case 'UTILISATEUR':
+        return <SuperAdminDashboard />;
+    default:
+      return <div>Tableau de bord Utilisateur (à implémenter)</div>;
+  }
 };
 
-// Exportez le composant comme module
 export default Dashboard;

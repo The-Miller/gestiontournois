@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import toornament from '../../assets/toornament.png';
 import background from '../../assets/football.webp';
 import './contact.css';
+import Navbar from '../Navbar/Navbar';
 
 // Définition des icônes SVG
 const MapIcon = () => (
@@ -65,22 +66,7 @@ const Contact = () => {
   return (
     <div className="contact-page">
       {/* Navbar Fixe */}
-      <header className="header">
-        <div className="logo-container">
-          <img src={toornament} alt="Logo Toornament" className="toornament-logo" />
-        </div>
-        <nav className="navbar">
-          <Link to="/">Accueil</Link>
-          <Link to="/presentation">Présentation</Link>
-          <Link to="/fil-actualite">Fil d'actualité</Link>
-          <Link to="/tournois">Tournois</Link>
-          <Link to="/contact" className="active">Contact</Link>
-          <div className="nav-buttons">
-            <Link to="/inscription" className="btn btn-signup">Inscription</Link>
-            <Link to="/connexion" className="btn btn-login">Connexion</Link>
-          </div>
-        </nav>
-      </header>
+      <Navbar />
 
       {/* Section Contact */}
       <div className="contact-container" style={{ backgroundImage: `url(${background})` }}>

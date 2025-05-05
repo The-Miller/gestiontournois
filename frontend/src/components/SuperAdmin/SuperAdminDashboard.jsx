@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { getCurrentUser, logout } from '../../services/api';
+import { useNavigate } from 'react-router-dom';
+import { getCurrentUser } from '../../services/api/authApi';
+import Sidebar from '../Sidebar/Sidebar';
 import './SuperAdminDashboard.css';
 
 const SuperAdminDashboard = () => {
@@ -16,7 +17,6 @@ const SuperAdminDashboard = () => {
       return;
     }
 
-    // Simuler le chargement des utilisateurs
     const mockUsers = [
       { id: 1, nom: 'Admin', prenom: 'Super', email: 'super@admin.com', role: 'SuperAdministrateur' },
       { id: 2, nom: 'Doe', prenom: 'John', email: 'john@doe.com', role: 'Administrateur' }
@@ -36,10 +36,8 @@ const SuperAdminDashboard = () => {
 
   const saveUser = () => {
     if (isEditMode) {
-      // Mise à jour de l'utilisateur
       setUsers(users.map(u => u.id === userToEdit.id ? userToEdit : u));
     } else {
-      // Ajout d'un nouvel utilisateur
       const newUser = { ...userToEdit, id: Date.now() };
       setUsers([...users, newUser]);
     }
@@ -54,26 +52,9 @@ const SuperAdminDashboard = () => {
     setUserToEdit(null);
   };
 
-  const handleLogout = async () => {
-    await logout();
-    navigate('/connexion');
-  };
-
   return (
     <div className="dashboard-container">
-      <aside className="sidebar">
-        <div className="logo-container">
-          <h2>Super Admin Dashboard</h2>
-        </div>
-        <nav className="sidebar-menu">
-          <ul>
-            <li><Link to="/superadmin/users"><i className="fa fa-users"></i> Gestion des Utilisateurs</Link></li>
-            <li><Link to="/superadmin/settings"><i className="fa fa-cog"></i> Paramètres Système</Link></li>
-            <li><button onClick={handleLogout} className="logout-btn"><i className="fa fa-sign-out"></i> Déconnexion</button></li>
-          </ul>
-        </nav>
-      </aside>
-
+      <Sidebar />
       <main className="content">
         <div className="user-management">
           <h2>Gestion des Utilisateurs</h2>
