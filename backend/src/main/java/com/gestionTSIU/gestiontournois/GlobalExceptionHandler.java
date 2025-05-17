@@ -1,4 +1,4 @@
-package com.gestionTSIU.gestiontournois.exception;
+package com.gestionTSIU.gestiontournois;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
