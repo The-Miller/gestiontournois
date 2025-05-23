@@ -1,0 +1,14 @@
+# Ignore tout le dossier credentials
+backend/src/main/resources/credentials/
+backend/bin/src/main/resources/credentials/
+
+# Node modules (inutile de versionner ça)
+backend/src/node_modules/
+frontend/node_modules/
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+
+# Configs perso
+*.env

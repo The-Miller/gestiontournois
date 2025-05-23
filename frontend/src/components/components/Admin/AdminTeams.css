@@ -1,0 +1,85 @@
+.dashboard-container {
+  display: flex;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+}
+
+.team-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.team-form input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.team-form button {
+  padding: 8px 16px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.team-form button:hover {
+  background: #0056b3;
+}
+
+.teams-list table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.teams-list th,
+.teams-list td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.teams-list th {
+  background: #f4f4f4;
+}
+
+.teams-list button {
+  margin-right: 5px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.teams-list button:nth-child(1) {
+  background: #28a745;
+  color: white;
+}
+
+.teams-list button:nth-child(2) {
+  background: #dc3545;
+  color: white;
+}
+
+.teams-list button:nth-child(3) {
+  background: #007bff;
+  color: white;
+}
+
+.members-list {
+  margin-top: 20px;
+}
+
+.members-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.members-list li {
+  padding: 5px 0;
+}
