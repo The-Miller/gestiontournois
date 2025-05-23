@@ -260,7 +260,6 @@
 // };
 //
 // export default AdminTeams;
-
 import React, { useEffect, useState } from 'react';
 import { getAllEquipes, createEquipe, updateEquipe, deleteEquipe, getTeamMembers, getAllTournaments, addMemberToTeam, updateTeamMember, deleteTeamMember } from '../../services/api/teamApi';
 import Sidebar from '../Sidebar/Sidebar';
@@ -330,15 +329,18 @@ const TournamentModal = ({ isOpen, onClose, onSubmit, formData, setFormData, edi
             </div>
             <div className="form-group">
               <label htmlFor="categorie">Catégorie</label>
-              <input
+              <select
                 id="categorie"
-                type="text"
                 name="categorie"
                 value={formData.categorie}
                 onChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}
                 required
-                placeholder="Entrez la catégorie"
-              />
+              >
+                <option value="">Sélectionner une catégorie</option>
+                <option value="Junior">Junior</option>
+                <option value="Senior">Senior</option>
+                <option value="Mixte">Mixte</option>
+              </select>
             </div>
             <div className="form-group">
               <label htmlFor="tournoiId">Tournoi</label>
@@ -420,11 +422,11 @@ const AdminTeams = () => {
       };
       if (editingId) {
         await updateEquipe(editingId, teamData);
-        setTeams(teams.map(t => t.id === editingId ? { ...t, ...teamData } : t));
+        setTeams(teams.map(t => t.id === editingId ? { ...t, ...teamData, tournoi: { id: formData.tournoiId, nom: tournaments.find(t => t.id === formData.tournoiId)?.nom || '' } } : t));
         showToast('Équipe mise à jour avec succès', 'success');
       } else {
         const newTeam = await createEquipe(teamData);
-        setTeams([...teams, newTeam]);
+        setTeams([...teams, { ...newTeam, tournoi: { id: formData.tournoiId, nom: tournaments.find(t => t.id === formData.tournoiId)?.nom || '' } }]);
         showToast('Équipe créée avec succès', 'success');
       }
       resetForm();
@@ -663,8 +665,8 @@ const AdminTeams = () => {
                 {displayedTeams.map(team => (
                   <tr key={team.id}>
                     <td>{team.nom}</td>
-                    <td>{team.categorie}</td>
-                    <td>{team.tournoi?.nom || 'N/A'}</td>
+                    <td>{team.categorie || 'Non spécifiée'}</td>
+                    <td>{team.tournoi?.nom || 'Aucun tournoi'}</td>
                     <td className="action-buttons">
                       <button className="edit-button" onClick={() => handleEdit(team)} title="Modifier">
                         <Edit size={18} />
