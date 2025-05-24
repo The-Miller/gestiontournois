@@ -1,43 +1,8 @@
-// import axios from 'axios';
-//
-// const API_URL = '/api/matches';
-//
-// // Récupérer tous les matchs
-// export const getAllMatches = async () => {
-//   const response = await api.get(API_URL);
-//   return response.data;
-// };
-//
-// // Récupérer un match par son id
-// export const getMatchById = async (id) => {
-//   const response = await api.get(`${API_URL}/${id}`);
-//   return response.data;
-// };
-//
-// // Créer un match
-// export const createMatch = async (data) => {
-//   const response = await api.post(API_URL, data);
-//   return response.data;
-// };
-//
-// // Modifier un match
-// export const updateMatch = async (id, data) => {
-//   const response = await api.put(`${API_URL}/${id}`, data);
-//   return response.data;
-// };
-//
-// // Supprimer un match
-// export const deleteMatch = async (id) => {
-//     await axios.delete(`${API_URL}/${id}`);
-//   };;
-
-import axios from 'axios';
-
-const API_URL = '/api/matches';
+import api from "./config";
 
 // Récupérer tous les matchs
 export const getAllMatches = async () => {
-  const response = await axios.get(API_URL);
+  const response = await api.get(`/api/matches`);
   return response.data.map(match => ({
     id: match.id,
     tournoiId: match.tournoi_id,
@@ -52,7 +17,7 @@ export const getAllMatches = async () => {
 
 // Récupérer un match par son id
 export const getMatchById = async (id) => {
-  const response = await axios.get(`${API_URL}/${id}`);
+  const response = await api.get(`/api/matches/${id}`); // Correction de l'URL
   const match = response.data;
   return {
     id: match.id,
@@ -68,11 +33,11 @@ export const getMatchById = async (id) => {
 
 // Créer un match
 export const createMatch = async (data) => {
-  const response = await axios.post(API_URL, {
+  const response = await api.post(`/api/matches`, {
     tournoi_id: data.tournoiId,
     equipea_id: data.equipeaId,
     equipeb_id: data.equipebId,
-    date: data.date,
+    date: data.date.split('T')[0], // Extraire uniquement YYYY-MM-DD
     scorea: data.scorea || 0,
     scoreb: data.scoreb || 0,
     statut: data.statut || 'SCHEDULED',
@@ -91,11 +56,11 @@ export const createMatch = async (data) => {
 
 // Modifier un match
 export const updateMatch = async (id, data) => {
-  const response = await axios.put(`${API_URL}/${id}`, {
+  const response = await api.put(`/api/matches/${id}`, { // Correction de l'URL
     tournoi_id: data.tournoiId,
     equipea_id: data.equipeaId,
     equipeb_id: data.equipebId,
-    date: data.date,
+    date: data.date.split('T')[0], // Extraire uniquement YYYY-MM-DD
     scorea: data.scorea || 0,
     scoreb: data.scoreb || 0,
     statut: data.statut || 'SCHEDULED',
@@ -114,5 +79,5 @@ export const updateMatch = async (id, data) => {
 
 // Supprimer un match
 export const deleteMatch = async (id) => {
-  await axios.delete(`${API_URL}/${id}`);
+  await api.delete(`/api/matches/${id}`); // Correction de l'URL
 };

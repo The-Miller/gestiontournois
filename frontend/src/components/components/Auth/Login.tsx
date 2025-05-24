@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { login } from '../../services/api/authApi';
-import { AuthContext } from '../../contexts/AuthContext';
+import { login } from '../../../services/api/authApi';
+import { AuthContext } from '../../../contexts/AuthContext';
 import './auth.css';
 import toornament from '../../assets/toornament.png';
 import background from '../../assets/football.webp';
@@ -38,7 +38,7 @@ const Login = () => {
             navigate('/manager/dashboard');
             break;
           case 'UTILISATEUR':
-            navigate('/user/dashboard');
+            navigate('/gerant/dashboard');
             break;
           default:
             navigate('/dashboard');

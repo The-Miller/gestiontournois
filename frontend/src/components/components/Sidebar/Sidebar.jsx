@@ -34,11 +34,14 @@ const Sidebar = () => {
         { to: '/admin/posts', icon: 'fa-bullhorn', label: 'Annonces / Posts' },
       ];      
       break;
-    case 'SuperAdministrateur':
-      logoText = 'Super Admin Dashboard';
+    case 'UTILISATEUR':
+      logoText = 'Gerant Dashboard';
       links = [
-        { to: '/superadmin/users', icon: 'fa-users', label: 'Gestion des Utilisateurs' },
-        { to: '/superadmin/settings', icon: 'fa-cog', label: 'Paramètres Système' },
+        { to: '/gerant/overview', icon: 'fa-chart-line', label: 'Statistiques' },
+        { to: '/gerant/tournaments', icon: 'fa-trophy', label: 'Gestion des Tournois' },
+        { to: '/gerant/teams', icon: 'fa-users', label: 'Gestion des Équipes' },
+        { to: '/gerant/matches', icon: 'fa-life-ring', label: 'Matchs & Résultats' },
+        { to: '/gerant/users', icon: 'fa-user-cog', label: 'Utilisateurs' },
       ];
       break;
     case 'COMMUNITY_MANAGER':
@@ -47,13 +50,6 @@ const Sidebar = () => {
         { to: '/manager/posts', icon: 'fa-newspaper', label: 'Gestion des Posts' },
       ];
       break;
-      case 'UTILISATEUR':
-        logoText = 'User Dashboard';
-        links = [
-          { to: '/dashboard/tournaments', icon: 'fa-trophy', label: 'Tournois' },
-          { to: '/dashboard/teams', icon: 'fa-users', label: 'Équipes' },
-        ];
-        break;
     default:
       return null; // Pas de sidebar pour les autres rôles
   }

@@ -3,7 +3,7 @@ import { AuthContext } from '../../contexts/AuthContext';
 import { Navigate } from 'react-router-dom';
 import AdminDashboard from '../Admin/AdminDashboard';
 import CommunityManager from '../CommunityManager/CommunityManagerDashboard';
-import SuperAdminDashboard from '../SuperAdmin/SuperAdminDashboard';
+import GerantDashboard from '../Gerant/GerantDashboard';
 
 const Dashboard = () => {
   const { user } = useContext(AuthContext);
@@ -18,9 +18,9 @@ const Dashboard = () => {
     case 'COMMUNITY_MANAGER':
       return <CommunityManager />;
     case 'UTILISATEUR':
-        return <SuperAdminDashboard />;
+        return <GerantDashboard />;
     default:
-      return <div>Tableau de bord Utilisateur (à implémenter)</div>;
+      return <div>Ce role n'esxite pas</div>;
   }
 };
 

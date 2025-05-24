@@ -427,10 +427,9 @@
 // };
 //
 // export default AdminMatches;
-
-
 import React, { useEffect, useState } from 'react';
 import { getAllMatches, createMatch, updateMatch, deleteMatch } from '../../services/api/matchApi';
+import { getAllEquipes, getAllTournaments } from '../../services/api/teamApi';
 import Sidebar from '../Sidebar/Sidebar';
 import { PlusCircle, Edit, Trash2, X, CheckCircle, AlertCircle, Loader } from 'lucide-react';
 import './AdminMatches.css';
@@ -486,7 +485,7 @@ const MatchModal = ({ isOpen, onClose, onSubmit, formData, setFormData, editingI
               >
                 <option value="">Sélectionner un tournoi</option>
                 {tournaments.map(t => (
-                  <option key={t.id} value={t.id}>{t.name}</option>
+                  <option key={t.id} value={t.id}>{t.nom}</option>
                 ))}
               </select>
             </div>
@@ -501,7 +500,7 @@ const MatchModal = ({ isOpen, onClose, onSubmit, formData, setFormData, editingI
               >
                 <option value="">Sélectionner une équipe</option>
                 {teams.map(t => (
-                  <option key={t.id} value={t.id}>{t.name}</option>
+                  <option key={t.id} value={t.id}>{t.nom}</option>
                 ))}
               </select>
             </div>
@@ -516,7 +515,7 @@ const MatchModal = ({ isOpen, onClose, onSubmit, formData, setFormData, editingI
               >
                 <option value="">Sélectionner une équipe</option>
                 {teams.map(t => (
-                  <option key={t.id} value={t.id}>{t.name}</option>
+                  <option key={t.id} value={t.id}>{t.nom}</option>
                 ))}
               </select>
             </div>
@@ -608,8 +607,8 @@ const AdminMatches = () => {
       try {
         const [matchesResponse, teamsResponse, tournamentsResponse] = await Promise.all([
           getAllMatches(),
-          fetch('/api/teams').then(res => res.json()), // Remplacez par votre endpoint réel
-          fetch('/api/tournaments').then(res => res.json()), // Remplacez par votre endpoint réel
+          getAllEquipes(),
+          getAllTournaments(),
         ]);
         setMatches(matchesResponse);
         setTeams(teamsResponse);
@@ -634,11 +633,12 @@ const AdminMatches = () => {
     e.preventDefault();
     setLoading(true);
     try {
+      // Ajouter une heure par défaut (00:00:00) pour correspondre à LocalDateTime
       const matchData = {
         tournoiId: formData.tournoiId,
         equipeaId: formData.equipeaId,
         equipebId: formData.equipebId,
-        date: formData.date,
+        date: formData.date ? `${formData.date}T00:00:00` : '', // Format YYYY-MM-DDTHH:mm:ss
         scorea: formData.scorea || 0,
         scoreb: formData.scoreb || 0,
         statut: formData.statut || 'SCHEDULED',
@@ -680,7 +680,7 @@ const AdminMatches = () => {
       tournoiId: match.tournoiId,
       equipeaId: match.equipeaId,
       equipebId: match.equipebId,
-      date: match.date.split('T')[0], // Format pour input HTML
+      date: match.date ? match.date.split('T')[0] : '', // Extraire uniquement la date YYYY-MM-DD
       scorea: match.scorea || '',
       scoreb: match.scoreb || '',
       statut: match.statut || '',
@@ -784,9 +784,9 @@ const AdminMatches = () => {
               <tbody>
               {sortedMatches.map(match => (
                 <tr key={match.id}>
-                  <td>{tournaments.find(t => t.id === match.tournoiId)?.name || 'N/A'}</td>
-                  <td>{teams.find(t => t.id === match.equipeaId)?.name || 'N/A'}</td>
-                  <td>{teams.find(t => t.id === match.equipebId)?.name || 'N/A'}</td>
+                  <td>{tournaments.find(t => t.id === match.tournoiId)?.nom || 'N/A'}</td>
+                  <td>{teams.find(t => t.id === match.equipeaId)?.nom || 'N/A'}</td>
+                  <td>{teams.find(t => t.id === match.equipebId)?.nom || 'N/A'}</td>
                   <td>{new Date(match.date).toLocaleDateString()}</td>
                   <td>{`${match.scorea || 0} - ${match.scoreb || 0}`}</td>
                   <td>{match.statut || 'N/A'}</td>

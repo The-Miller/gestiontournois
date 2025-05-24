@@ -1,96 +1,7 @@
-// import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-// import Login from './components/Auth/Login';
-// import Home from './components/Home/Home';
-// import Dashboard from './components/Dashboard/Dashboard';
-// import AdminDashboard from './components/Admin/AdminDashboard';
-// import PrivateRoute from './components/Auth/PrivateRoute';
-// import FilActualite from './components/FilActualite/Fil';
-// import Contact from './components/Contact/Contact';
-// import Presentation from './components/Presentation/Presentation';
-// import Register from './components/Auth/Register';
-// import CommunityManagerDashboard from './components/CommunityManager/CommunityManagerDashboard';
-// import CommunityManagerPosts from './components/CommunityManager/CommunityManagerPosts';
-// import SuperAdminDashboard from './components/SuperAdmin/SuperAdminDashboard';
-// import AdminTournaments from './components/Admin/AdminTournois';
-
-// function App() {
-//   return (
-//     <Router>
-//       <Routes>
-//         <Route path="/" element={<Home />} />
-//         <Route path="/connexion" element={<Login />} />
-//         <Route path="/presentation" element={<Presentation />} />
-//         <Route path="/fil-actualite" element={<FilActualite />} />
-//         <Route path="/tournois" element={<FilActualite />} />
-//         <Route path="/inscription" element={<Register />} />
-//         <Route path="/contact" element={<Contact />} />
-//         <Route path="/deconnexion" element={<Home />} />
-        
-//         {/* Route protégée pour les utilisateurs normaux */}
-//         <Route 
-//           path="/dashboard" 
-//           element={
-//             <PrivateRoute requiredRole={['UTILISATEUR']}>
-//               <Dashboard />
-//             </PrivateRoute>
-//           } 
-//         />
-        
-//         {/* Route protégée pour les administrateurs */}
-//         <Route 
-//           path="/admin/dashboard" 
-//           element={
-//             <PrivateRoute requiredRole={['ADMINISTRATEUR']}>
-//               <AdminDashboard />
-//             </PrivateRoute>
-//           } 
-//         />
-//           <Route 
-//           path="/admin/tournaments" 
-//           element={
-//             <PrivateRoute requiredRole={['ADMINISTRATEUR']}>
-//               <AdminTournaments />
-//             </PrivateRoute>
-//           } 
-//         />
-//         {/* Route protégée pour les community managers */}
-//         <Route 
-//           path="/manager/dashboard" 
-//           element={
-//             <PrivateRoute requiredRole={['COMMUNITY_MANAGER']}>
-//               <CommunityManagerDashboard />
-//             </PrivateRoute>
-//           } 
-//         />
-//         {/* Route protégée pour les utilisateurs */}
-//         <Route 
-//           path="/users/dashboard" 
-//           element={
-//             <PrivateRoute requiredRole={['UTILISATEUR']}>
-//               <SuperAdminDashboard />
-//             </PrivateRoute>
-//           } 
-//         />
-
-//         <Route
-//           path="/manager/posts"
-//           element={
-//             <PrivateRoute requiredRole={['COMMUNITY_MANAGER']}>
-//               <CommunityManagerPosts />
-//             </PrivateRoute>
-//           }
-//         />
-
-//       </Routes>
-//     </Router>
-//   );
-// }
-
-// export default App;
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './components/Auth/Login';
 import Home from './components/Home/Home';
-import Dashboard from './components/Dashboard/Dashboard';
+// import Dashboard from './components/Dashboard/Dashboard';
 import AdminDashboard from './components/Admin/AdminDashboard';
 import AdminOverview from './components/Admin/AdminOverview';
 import AdminTournaments from './components/Admin/AdminTournaments';
@@ -106,8 +17,12 @@ import Presentation from './components/Presentation/Presentation';
 import Register from './components/Auth/Register';
 import CommunityManagerDashboard from './components/CommunityManager/CommunityManagerDashboard';
 import CommunityManagerPosts from './components/CommunityManager/CommunityManagerPosts';
-import SuperAdminDashboard from './components/SuperAdmin/SuperAdminDashboard';
-
+import GerantDashboard from './components/Gerant/GerantDashboard';
+import GerantOverview from './components/Gerant/GerantOverview';
+import GerantTournaments from './components/Gerant/GerantTournaments';
+import GerantTeams from './components/Gerant/GerantTeams';
+import GerantMatches from './components/Gerant/GerantMatches';
+import GerantUsers from './components/Gerant/GerantUsers';
 function App() {
   return (
     <Router>
@@ -122,14 +37,14 @@ function App() {
         <Route path="/deconnexion" element={<Home />} />
         
         {/* Route protégée pour les utilisateurs normaux */}
-        <Route 
+        {/* <Route 
           path="/dashboard" 
           element={
             <PrivateRoute requiredRole={['UTILISATEUR']}>
               <Dashboard />
             </PrivateRoute>
           } 
-        />
+        /> */}
         
         {/* Routes protégées pour les administrateurs */}
         <Route 
@@ -215,12 +130,44 @@ function App() {
           } 
         />
         
-        {/* Route protégée pour les super administrateurs */}
+        {/* Route protégée pour les gerants */}
         <Route 
-          path="/superadmin/dashboard" 
+          path="/gerant/dashboard" 
           element={
-            <PrivateRoute requiredRole={['SuperAdministrateur']}>
-              <SuperAdminDashboard />
+            <PrivateRoute requiredRole={['UTILISATEUR']}>
+              <GerantDashboard />
+            </PrivateRoute>
+          } 
+        />
+        <Route 
+          path="/gerant/overview" 
+          element={
+            <PrivateRoute requiredRole={['UTILISATEUR']}>
+              <GerantOverview />
+            </PrivateRoute>
+          } 
+        />
+        <Route 
+          path="/gerant/tournaments" 
+          element={
+            <PrivateRoute requiredRole={['UTILISATEUR']}>
+              <GerantTournaments />
+            </PrivateRoute>
+          } 
+        />
+        <Route 
+          path="/gerant/teams" 
+          element={
+            <PrivateRoute requiredRole={['UTILISATEUR']}>
+              <GerantTeams />
+            </PrivateRoute>
+          } 
+        />
+        <Route 
+          path="/gerant/matches" 
+          element={
+            <PrivateRoute requiredRole={['UTILISATEUR']}>
+              <GerantMatches />
             </PrivateRoute>
           } 
         />

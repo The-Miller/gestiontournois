@@ -38,7 +38,7 @@ const Login = () => {
             navigate('/manager/dashboard');
             break;
           case 'UTILISATEUR':
-            navigate('/user/dashboard');
+            navigate('/gerant/dashboard');
             break;
           default:
             navigate('/dashboard');

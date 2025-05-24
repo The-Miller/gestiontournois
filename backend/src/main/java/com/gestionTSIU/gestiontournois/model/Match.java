@@ -115,8 +115,8 @@
 package com.gestionTSIU.gestiontournois.model;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "matches")
@@ -127,31 +127,30 @@ public class Match {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "equipeA_id")
+    @JoinColumn(name = "equipeA_id") // Assure-toi que le nom de la colonne correspond à la base de données
     private Equipe equipeA;
 
     @ManyToOne
-    @JoinColumn(name = "equipeB_id")
+    @JoinColumn(name = "equipeB_id") // Assure-toi que le nom de la colonne correspond à la base de données
     private Equipe equipeB;
 
-    @Column
-    private LocalDateTime date;
+    @Column(name = "date")
+    private LocalDate date;
 
-    @Column
+    @Column(name = "scoreA")
     private Integer scoreA;
 
-    @Column
+    @Column(name = "scoreB")
     private Integer scoreB;
 
     @ManyToOne
     @JoinColumn(name = "tournoi_id")
     private Tournament tournoi;
 
-    @Column
+    @Column(name = "statut")
     private String statut;
 
-    @Column
-    @JsonProperty("lieu") // Ajouté pour s'assurer que le champ est inclus
+    @Column(name = "lieu")
     private String lieu;
 
     // Getters et Setters
@@ -179,11 +178,11 @@ public class Match {
         this.equipeB = equipeB;
     }
 
-    public LocalDateTime getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
