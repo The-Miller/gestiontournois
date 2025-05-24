@@ -34,7 +34,7 @@ const Sidebar = () => {
         { to: '/admin/posts', icon: 'fa-bullhorn', label: 'Annonces / Posts' },
       ];      
       break;
-    case 'UTILISATEUR':
+    case 'GERANT':
       logoText = 'Gerant Dashboard';
       links = [
         { to: '/gerant/overview', icon: 'fa-chart-line', label: 'Statistiques' },

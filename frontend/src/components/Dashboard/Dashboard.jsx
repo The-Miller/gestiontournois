@@ -17,7 +17,7 @@ const Dashboard = () => {
       return <AdminDashboard />;
     case 'COMMUNITY_MANAGER':
       return <CommunityManager />;
-    case 'UTILISATEUR':
+    case 'GERANT':
         return <GerantDashboard />;
     default:
       return <div>Ce role n'esxite pas</div>;

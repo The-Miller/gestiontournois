@@ -17,7 +17,7 @@ const Dashboard = () => {
       return <AdminDashboard />;
     case 'COMMUNITY_MANAGER':
       return <CommunityManager />;
-    case 'UTILISATEUR':
+    case 'GERANT':
         return <SuperAdminDashboard />;
     default:
       return <div>Tableau de bord Utilisateur (à implémenter)</div>;

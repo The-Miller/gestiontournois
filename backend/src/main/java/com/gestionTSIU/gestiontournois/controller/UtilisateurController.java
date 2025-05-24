@@ -27,7 +27,7 @@ public class UtilisateurController {
     @PostMapping("/register")
     public ResponseEntity<?> registerUtilisateur(@RequestBody Utilisateur utilisateur) {
         try {
-            utilisateur.setRole("Administrateur");
+            utilisateur.setRole("GERANT");
             Utilisateur newUser = utilisateurService.createUtilisateur(utilisateur);
             return ResponseEntity.ok(newUser);
         } catch (Exception e) {
@@ -59,7 +59,7 @@ public class UtilisateurController {
                 userDto.setEmail(existingUser.getEmail());
                 userDto.setNom(existingUser.getNom());
                 userDto.setPrenom(existingUser.getPrenom());
-                userDto.setRole(existingUser.getRole() != null ? existingUser.getRole() : "UTILISATEUR");
+                userDto.setRole(existingUser.getRole() != null ? existingUser.getRole() : "GERANT");
                 System.out.println("UtilisateurDto créé : " + userDto);
                 return ResponseEntity.ok(userDto);
             } else {

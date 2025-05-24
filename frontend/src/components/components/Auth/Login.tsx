@@ -26,7 +26,7 @@ const Login = () => {
       console.log('Réponse du serveur :', response);
       if (response && typeof response === 'object' && Object.keys(response).length > 0) {
         const userData = response;
-        const userRole = userData.role || 'UTILISATEUR';
+        const userRole = userData.role || 'GERANT';
         console.log('Données utilisateur :', userData);
         setUser(userData);
         localStorage.setItem('user', JSON.stringify(userData));
@@ -37,7 +37,7 @@ const Login = () => {
           case 'COMMUNITY_MANAGER':
             navigate('/manager/dashboard');
             break;
-          case 'UTILISATEUR':
+          case 'GERANT':
             navigate('/gerant/dashboard');
             break;
           default:

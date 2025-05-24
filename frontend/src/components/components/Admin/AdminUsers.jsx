@@ -77,7 +77,7 @@ const AdminUsers = () => {
             required
           >
             <option value="">Sélectionner un rôle</option>
-            <option value="UTILISATEUR">Utilisateur</option>
+            <option value="GERANT">Utilisateur</option>
             <option value="ADMINISTRATEUR">Administrateur</option>
             <option value="COMMUNITY_MANAGER">Community Manager</option>
             <option value="SuperAdministrateur">Super Administrateur</option>

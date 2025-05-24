@@ -38,7 +38,7 @@ function App() {
         {/* <Route
           path="/dashboard"
           element={
-            <PrivateRoute requiredRole={['UTILISATEUR']}>
+            <PrivateRoute requiredRole={['GERANT']}>
               <Dashboard />
             </PrivateRoute>
           }
@@ -125,7 +125,7 @@ function App() {
         <Route
           path="/gerant/dashboard"
           element={
-            <PrivateRoute requiredRole={['UTILISATEUR']}>
+            <PrivateRoute requiredRole={['GERANT']}>
               <GerantDashboard />
             </PrivateRoute>
           }
@@ -133,7 +133,7 @@ function App() {
         <Route
           path="/gerant/overview"
           element={
-            <PrivateRoute requiredRole={['UTILISATEUR']}>
+            <PrivateRoute requiredRole={['GERANT']}>
               <GerantOverview />
             </PrivateRoute>
           }
@@ -141,7 +141,7 @@ function App() {
         <Route
           path="/gerant/tournaments"
           element={
-            <PrivateRoute requiredRole={['UTILISATEUR']}>
+            <PrivateRoute requiredRole={['GERANT']}>
               <GerantTournaments />
             </PrivateRoute>
           }
@@ -149,7 +149,7 @@ function App() {
         <Route
           path="/gerant/teams"
           element={
-            <PrivateRoute requiredRole={['UTILISATEUR']}>
+            <PrivateRoute requiredRole={['GERANT']}>
               <GerantTeams />
             </PrivateRoute>
           }
@@ -157,7 +157,7 @@ function App() {
         <Route
           path="/gerant/matches"
           element={
-            <PrivateRoute requiredRole={['UTILISATEUR']}>
+            <PrivateRoute requiredRole={['GERANT']}>
               <GerantMatches />
             </PrivateRoute>
           }
