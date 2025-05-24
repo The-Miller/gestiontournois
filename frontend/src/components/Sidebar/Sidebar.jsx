@@ -30,9 +30,8 @@ const Sidebar = () => {
         { to: '/admin/teams', icon: 'fa-users', label: 'Gestion des Équipes' },
         { to: '/admin/matches', icon: 'fa-life-ring', label: 'Matchs & Résultats' },
         { to: '/admin/users', icon: 'fa-user-cog', label: 'Utilisateurs' },
-        { to: '/admin/reservations', icon: 'fa-credit-card', label: 'Réservations & Paiements' },
         { to: '/admin/posts', icon: 'fa-bullhorn', label: 'Annonces / Posts' },
-      ];      
+      ];
       break;
     case 'UTILISATEUR':
       logoText = 'Gerant Dashboard';

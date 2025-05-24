@@ -8,7 +8,6 @@ import AdminTournaments from './components/Admin/AdminTournaments';
 import AdminTeams from './components/Admin/AdminTeams';
 import AdminMatches from './components/Admin/AdminMatches';
 import AdminUsers from './components/Admin/AdminUsers';
-import AdminReservations from './components/Admin/AdminReservations';
 import AdminPosts from './components/Admin/AdminPosts';
 import PrivateRoute from './components/Auth/PrivateRoute';
 import FilActualite from './components/FilActualite/Fil';
@@ -22,7 +21,6 @@ import GerantOverview from './components/Gerant/GerantOverview';
 import GerantTournaments from './components/Gerant/GerantTournaments';
 import GerantTeams from './components/Gerant/GerantTeams';
 import GerantMatches from './components/Gerant/GerantMatches';
-import GerantUsers from './components/Gerant/GerantUsers';
 function App() {
   return (
     <Router>
@@ -35,141 +33,134 @@ function App() {
         <Route path="/inscription" element={<Register />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/deconnexion" element={<Home />} />
-        
+
         {/* Route protégée pour les utilisateurs normaux */}
-        {/* <Route 
-          path="/dashboard" 
+        {/* <Route
+          path="/dashboard"
           element={
             <PrivateRoute requiredRole={['UTILISATEUR']}>
               <Dashboard />
             </PrivateRoute>
-          } 
+          }
         /> */}
-        
+
         {/* Routes protégées pour les administrateurs */}
-        <Route 
-          path="/admin/dashboard" 
+        <Route
+          path="/admin/dashboard"
           element={
             <PrivateRoute requiredRole={['ADMINISTRATEUR']}>
               <AdminDashboard />
             </PrivateRoute>
-          } 
+          }
         />
-        <Route 
-          path="/admin/overview" 
+        <Route
+          path="/admin/overview"
           element={
             <PrivateRoute requiredRole={['ADMINISTRATEUR']}>
               <AdminOverview />
             </PrivateRoute>
-          } 
+          }
         />
-        <Route 
-          path="/admin/tournaments" 
+        <Route
+          path="/admin/tournaments"
           element={
             <PrivateRoute requiredRole={['ADMINISTRATEUR']}>
               <AdminTournaments />
             </PrivateRoute>
-          } 
+          }
         />
-        <Route 
-          path="/admin/teams" 
+        <Route
+          path="/admin/teams"
           element={
             <PrivateRoute requiredRole={['ADMINISTRATEUR']}>
               <AdminTeams />
             </PrivateRoute>
-          } 
+          }
         />
-        <Route 
-          path="/admin/matches" 
+        <Route
+          path="/admin/matches"
           element={
             <PrivateRoute requiredRole={['ADMINISTRATEUR']}>
               <AdminMatches />
             </PrivateRoute>
-          } 
+          }
         />
-        <Route 
-          path="/admin/users" 
+        <Route
+          path="/admin/users"
           element={
             <PrivateRoute requiredRole={['ADMINISTRATEUR']}>
               <AdminUsers />
             </PrivateRoute>
-          } 
+          }
         />
-        <Route 
-          path="/admin/reservations" 
-          element={
-            <PrivateRoute requiredRole={['ADMINISTRATEUR']}>
-              <AdminReservations />
-            </PrivateRoute>
-          } 
-        />
-        <Route 
-          path="/admin/posts" 
+
+        <Route
+          path="/admin/posts"
           element={
             <PrivateRoute requiredRole={['ADMINISTRATEUR']}>
               <AdminPosts />
             </PrivateRoute>
-          } 
+          }
         />
-        
+
         {/* Route protégée pour les community managers */}
-        <Route 
-          path="/manager/dashboard" 
+        <Route
+          path="/manager/dashboard"
           element={
             <PrivateRoute requiredRole={['COMMUNITY_MANAGER']}>
               <CommunityManagerDashboard />
             </PrivateRoute>
-          } 
+          }
         />
-        <Route 
-          path="/manager/posts" 
+        <Route
+          path="/manager/posts"
           element={
             <PrivateRoute requiredRole={['COMMUNITY_MANAGER']}>
               <CommunityManagerPosts />
             </PrivateRoute>
-          } 
+          }
         />
-        
+
         {/* Route protégée pour les gerants */}
-        <Route 
-          path="/gerant/dashboard" 
+        <Route
+          path="/gerant/dashboard"
           element={
             <PrivateRoute requiredRole={['UTILISATEUR']}>
               <GerantDashboard />
             </PrivateRoute>
-          } 
+          }
         />
-        <Route 
-          path="/gerant/overview" 
+        <Route
+          path="/gerant/overview"
           element={
             <PrivateRoute requiredRole={['UTILISATEUR']}>
               <GerantOverview />
             </PrivateRoute>
-          } 
+          }
         />
-        <Route 
-          path="/gerant/tournaments" 
+        <Route
+          path="/gerant/tournaments"
           element={
             <PrivateRoute requiredRole={['UTILISATEUR']}>
               <GerantTournaments />
             </PrivateRoute>
-          } 
+          }
         />
-        <Route 
-          path="/gerant/teams" 
+        <Route
+          path="/gerant/teams"
           element={
             <PrivateRoute requiredRole={['UTILISATEUR']}>
               <GerantTeams />
             </PrivateRoute>
-          } 
+          }
         />
-        <Route 
-          path="/gerant/matches" 
+        <Route
+          path="/gerant/matches"
           element={
             <PrivateRoute requiredRole={['UTILISATEUR']}>
               <GerantMatches />
             </PrivateRoute>
-          } 
+          }
         />
       </Routes>
     </Router>
