@@ -1,0 +1,74 @@
+.dashboard-container {
+  display: flex;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+}
+
+.post-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.post-form input,
+.post-form textarea {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.post-form textarea {
+  min-height: 100px;
+}
+
+.post-form button {
+  padding: 8px 16px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+.post-form button:hover {
+  background: #0056b3;
+}
+
+.posts-list table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.posts-list th,
+.posts-list td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.posts-list th {
+  background: #f4f4f4;
+}
+
+.posts-list button {
+  margin-right: 5px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.posts-list button:first-child {
+  background: #28a745;
+  color: white;
+}
+
+.posts-list button:last-child {
+  background: #dc3545;
+  color: white;
+}
