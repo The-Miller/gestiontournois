@@ -27,7 +27,7 @@ public class UtilisateurController {
     @PostMapping("/register")
     public ResponseEntity<?> registerUtilisateur(@RequestBody Utilisateur utilisateur) {
         try {
-            utilisateur.setRole("Administrateur");
+            utilisateur.setRole(utilisateur.getRole() != null ? utilisateur.getRole() : "Utilisateur");
             Utilisateur newUser = utilisateurService.createUtilisateur(utilisateur);
             return ResponseEntity.ok(newUser);
         } catch (Exception e) {
