@@ -1,0 +1,803 @@
+/* Variables */
+:root {
+  --color-primary: #6d28d9;
+  --color-primary-light: #ddd6fe;
+  --color-primary-dark: #5b21b6;
+  --color-green: #10b981;
+  --color-green-light: #d1fae5;
+  --color-yellow: #f59e0b;
+  --color-yellow-light: #fef3c7;
+  --color-red: #ef4444;
+  --color-red-light: #fee2e2;
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+  --color-white: #ffffff;
+  --border-radius: 0.5rem;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --transition: all 0.2s ease-in-out;
+}
+
+/* Base */
+.admin-tournaments {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--color-gray-50);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--color-gray-900);
+}
+
+.content {
+  flex: 1;
+  padding: 1.5rem;
+  overflow-x: hidden;
+}
+
+@media (min-width: 1024px) {
+  .content {
+    padding: 2rem;
+  }
+}
+
+/* Header */
+.header {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 640px) {
+  .header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.header-text {
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 640px) {
+  .header-text {
+    margin-bottom: 0;
+  }
+}
+
+.header h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--color-gray-900);
+}
+
+.header-description {
+  margin: 0.25rem 0 0;
+  font-size: 0.875rem;
+  color: var(--color-gray-500);
+}
+
+.add-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: var(--transition);
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border: none;
+  cursor: pointer;
+}
+
+.add-button:hover {
+  background-color: var(--color-primary-dark);
+}
+
+.add-button.close {
+  background-color: var(--color-gray-200);
+  color: var(--color-gray-800);
+}
+
+.add-button.close:hover {
+  background-color: var(--color-gray-300);
+}
+
+.add-button .icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* Stats */
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+  .stats-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.stat-card {
+  align-items: center;
+  gap: 1rem;
+  background-color: var(--color-white);
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+}
+
+.stat-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 9999px;
+}
+
+.purple-icon {
+  background-color: var(--color-primary-light);
+}
+
+.purple-icon .icon {
+  color: var(--color-primary);
+}
+
+.green-icon {
+  background-color: var(--color-green-light);
+}
+
+.green-icon .icon {
+  color: var(--color-green);
+}
+
+.yellow-icon {
+  background-color: var(--color-yellow-light);
+}
+
+.yellow-icon .icon {
+  color: var(--color-yellow);
+}
+
+.stat-icon .icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.stat-title {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--color-gray-500);
+}
+
+.stat-value {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-gray-900);
+}
+
+/* Form */
+.form-container,
+.tournament-section {
+  background-color: var(--color-white);
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 2rem;
+}
+
+.section-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 1.5rem;
+  color: var(--color-gray-900);
+}
+
+.tournament-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 100%;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  max-width: 100%;
+}
+
+@media (min-width: 768px) {
+  .form-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.form-group label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-gray-700);
+}
+
+.form-group input,
+.form-group select {
+  padding: 0.625rem 0.875rem;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--color-gray-300);
+  background-color: var(--color-white);
+  transition: var(--transition);
+  font-size: 0.875rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-primary-light);
+}
+
+/* Style spécifique pour la checkbox */
+.form-group input[type="checkbox"] {
+  margin-right: 8px;
+  width: auto; /* Permet de ne pas étirer la checkbox */
+}
+
+/* Style pour le select des Community Managers */
+.tournament-form select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--border-radius);
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+/* Style pour les champs du Community Manager */
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--border-radius);
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding-top: 0.5rem;
+}
+
+.cancel-button {
+  padding: 0.625rem 1rem;
+  border-radius: var(--border-radius);
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: var(--transition);
+  background-color: var(--color-white);
+  color: var(--color-gray-700);
+  border: 1px solid var(--color-gray-300);
+  cursor: pointer;
+}
+
+.cancel-button:hover {
+  background-color: var(--color-gray-100);
+}
+
+.submit-button,
+.create-button {
+  padding: 0.625rem 1rem;
+  border-radius: var(--border-radius);
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: var(--transition);
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border: none;
+  cursor: pointer;
+}
+
+.submit-button:hover,
+.create-button:hover {
+  background-color: var(--color-primary-dark);
+}
+
+/* Table and search */
+.section-header {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .section-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.search-container {
+  position: relative;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+@media (min-width: 640px) {
+  .search-container {
+    width: auto;
+    margin-top: 0;
+  }
+}
+
+.search-icon {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-gray-400);
+  width: 1.25rem;
+  height: 1.25rem;
+  pointer-events: none;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.625rem 0.875rem 0.625rem 2.5rem;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--color-gray-300);
+  transition: var(--transition);
+  font-size: 0.875rem;
+}
+
+@media (min-width: 640px) {
+  .search-input {
+    width: 16rem;
+  }
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-primary-light);
+}
+
+.table-container {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.tournament-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.tournament-table th {
+  text-align: left;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: var(--color-gray-500);
+  background-color: var(--color-gray-50);
+  border-bottom: 1px solid var(--color-gray-200);
+}
+
+.sortable-header {
+  cursor: pointer;
+}
+
+.tournament-table thead tr:first-child th:first-child {
+  border-top-left-radius: var(--border-radius);
+}
+
+.tournament-table thead tr:first-child th:last-child {
+  border-top-right-radius: var(--border-radius);
+}
+
+.tournament-table tbody tr {
+  transition: var(--transition);
+}
+
+.tournament-table tbody tr:hover {
+  background-color: var(--color-gray-50);
+}
+
+.tournament-table td {
+  padding: 1rem 1.5rem;
+  font-size: 0.875rem;
+  border-bottom: 1px solid var(--color-gray-200);
+  color: var(--color-gray-700);
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.status-completed {
+  background-color: var(--color-green-light);
+  color: var(--color-green);
+}
+
+.status-progress {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.status-upcoming {
+  background-color: var(--color-yellow-light);
+  color: var(--color-yellow);
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.edit-button,
+.delete-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.edit-button {
+  color: var(--color-gray-600);
+}
+
+.edit-button:hover {
+  color: var(--color-primary);
+}
+
+.delete-button {
+  color: var(--color-gray-600);
+}
+
+.delete-button:hover {
+  color: var(--color-red);
+}
+
+/* Loading and empty states */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 0;
+  color: var(--color-gray-500);
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+  color: var(--color-primary);
+  width: 2rem;
+  height: 2rem;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 3rem 0;
+  color: var(--color-gray-500);
+}
+
+.create-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.create-button .icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  font-size: 0.875rem;
+  animation: slideInRight 0.3s ease-in-out;
+}
+
+.toast.success {
+  background-color: var(--color-green-light);
+  color: var(--color-green);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.toast.error {
+  background-color: var(--color-red-light);
+  color: var(--color-red);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.toast-close {
+  margin-left: 0.5rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: currentColor;
+  opacity: 0.7;
+  transition: var(--transition);
+}
+
+.toast-close:hover {
+  opacity: 1;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 1rem;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.confirmation-modal {
+  background-color: var(--color-white);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  max-width: 28rem;
+  width: 100%;
+  box-shadow: var(--shadow-lg);
+  animation: zoomIn 0.2s ease-in-out;
+}
+
+.tournament-modal {
+  background-color: var(--color-white);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  max-width: 36rem;
+  width: 90%; /* Ajustement pour s'assurer qu'il s'adapte à la fenêtre */
+  max-height: 80vh; /* Limite la hauteur pour éviter le débordement */
+  overflow-y: auto; /* Permet de scroller si nécessaire */
+  box-shadow: var(--shadow-lg);
+  animation: zoomIn 0.2s ease-in-out;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.modal-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--color-gray-900);
+}
+
+.modal-message {
+  margin: 0 0 1.5rem;
+  color: var(--color-gray-600);
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-gray-600);
+  transition: var(--transition);
+}
+
+.modal-close:hover {
+  color: var(--color-gray-900);
+}
+
+.tournament-modal .tournament-form {
+  margin: 0;
+}
+
+.confirmation-modal .confirm-button {
+  background-color: var(--color-red);
+}
+
+.confirmation-modal .confirm-button:hover {
+  background-color: #dc2626; /* darker red */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .admin-tournaments {
+    background-color: var(--color-gray-900);
+    color: var(--color-gray-50);
+  }
+
+  .header h1 {
+    color: var(--color-white);
+  }
+
+  .stat-card,
+  .form-container,
+  .tournament-section,
+  .confirmation-modal,
+  .tournament-modal {
+    background-color: var(--color-gray-800);
+  }
+
+  .stat-title {
+    color: var(--color-gray-400);
+  }
+
+  .stat-value,
+  .section-title,
+  .modal-title {
+    color: var(--color-white);
+  }
+
+  .form-group label {
+    color: var(--color-gray-300);
+  }
+
+  .form-group input,
+  .form-group select {
+    background-color: var(--color-gray-700);
+    border-color: var(--color-gray-600);
+    color: var(--color-white);
+  }
+
+  .form-group input:focus,
+  .form-group select:focus {
+    border-color: var(--color-primary-light);
+    box-shadow: 0 0 0 2px rgba(109, 40, 217, 0.2);
+  }
+
+  .tournament-table th {
+    background-color: var(--color-gray-700);
+    color: var(--color-gray-300);
+    border-bottom-color: var(--color-gray-600);
+  }
+
+  .tournament-table td {
+    border-bottom-color: var(--color-gray-600);
+    color: var(--color-gray-300);
+  }
+
+  .tournament-table tbody tr:hover {
+    background-color: var(--color-gray-700);
+  }
+
+  .empty-state,
+  .loading-container {
+    color: var(--color-gray-400);
+  }
+
+  .cancel-button {
+    background-color: var(--color-gray-800);
+    color: var(--color-gray-300);
+    border-color: var(--color-gray-600);
+  }
+
+  .cancel-button:hover {
+    background-color: var(--color-gray-700);
+  }
+
+  .add-button.close {
+    background-color: var(--color-gray-700);
+    color: var(--color-gray-200);
+  }
+
+  .add-button.close:hover {
+    background-color: var(--color-gray-600);
+  }
+
+  .modal-message {
+    color: var(--color-gray-300);
+  }
+
+  .modal-close {
+    color: var(--color-gray-400);
+  }
+
+  .modal-close:hover {
+    color: var(--color-gray-200);
+  }
+}

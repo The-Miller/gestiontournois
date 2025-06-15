@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-GestiontournoisApplication<gestiontournois>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.gestionTSIU.gestiontournois.GestiontournoisApplication",
+            "projectName": "gestiontournois",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

@@ -1,0 +1,144 @@
+/* Dashboard commun */
+.dashboard-container, .dashboard-community {
+    display: flex;
+    min-height: 100vh;
+  }
+  
+  .sidebar {
+    width: 250px;
+    background-color: #1c3c74;
+    color: white;
+    padding: 20px;
+  }
+  
+  .logo-container {
+    padding: 20px 0;
+    text-align: center;
+  }
+  
+  .sidebar-menu ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .sidebar-menu li {
+    margin-bottom: 15px;
+  }
+  
+  .sidebar-menu a, .logout-btn {
+    color: white;
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+  }
+  
+  .sidebar-menu a:hover, .logout-btn:hover {
+    background-color: #6ca6e2;
+  }
+  
+  .sidebar-menu a.active {
+    background-color: #6ca6e2;
+    font-weight: bold;
+  }
+  
+  .sidebar-menu i {
+    margin-right: 10px;
+  }
+  
+  .content {
+    flex: 1;
+    padding: 30px;
+    background-color: #f5f7fa;
+  }
+  
+  /* Styles des tables */
+  .user-table, .tournaments-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+  }
+  
+  .user-table th, .user-table td,
+  .tournaments-table th, .tournaments-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .user-table th, .tournaments-table th {
+    background-color: #1c3c74;
+    color: white;
+  }
+  
+  /* Boutons */
+  .btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 5px;
+  }
+  
+  .btn-primary {
+    background-color: #1c3c74;
+    color: white;
+  }
+  
+  .btn-danger {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .btn-warning {
+    background-color: #ff9800;
+    color: white;
+  }
+  
+  .btn-secondary {
+    background-color: #6c757d;
+    color: white;
+  }
+  
+  /* Formulaires */
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .form-group input, 
+  .form-group select, 
+  .form-group textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .user-form, .edit-form {
+    background: white;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  
+  .post {
+    background: white;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  
+  .post img {
+    max-width: 100%;
+    height: auto;
+    margin: 10px 0;
+  }

@@ -1,0 +1,242 @@
+/* src/components/Auth/auth.css */
+
+/* Style global de la page d'authentification */
+.auth-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+  }
+  
+
+  /* Container du formulaire avec image de fond */
+  .auth-container {
+    position: relative;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    padding: 40px 20px;
+    box-sizing: border-box;
+  }
+  
+  .auth-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 0;
+  }
+  
+  .auth-card {
+    position: relative;
+    z-index: 1;
+    background: white;
+    border-radius: 10px;
+    padding: 40px;
+    width: 100%;
+    max-width: 450px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Styles du formulaire de connexion */
+  .auth-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .auth-logo {
+    height: 30px;
+    margin-bottom: 20px;
+  }
+  
+  .auth-header h2 {
+    font-size: 24px;
+    color: #1c3c74;
+    margin-bottom: 10px;
+  }
+  
+  .auth-header p {
+    font-size: 16px;
+    color: #666;
+  }
+  
+  .auth-error {
+    background-color: #fee;
+    border-left: 4px solid #d8534f;
+    color: #d8534f;
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+  }
+  
+  .auth-form {
+    margin-bottom: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #444;
+  }
+  
+  .form-group input {
+    color: black;
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+    box-sizing: border-box;
+  }
+  
+  .form-group input:focus {
+    border-color: #6ca6e2;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(108, 166, 226, 0.2);
+  }
+  
+  .form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .remember-me {
+    display: flex;
+    align-items: center;
+  }
+  
+  .remember-me input[type="checkbox"] {
+    margin-right: 8px;
+  }
+  
+  .forgot-password {
+    color: #6ca6e2;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s;
+  }
+  
+  .forgot-password:hover {
+    color: #1c3c74;
+    text-decoration: underline;
+  }
+  
+  .auth-button {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #1c3c74 0%, #6ca6e2 100%);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  
+  .auth-button:hover {
+    background: linear-gradient(135deg, #15305f 0%, #5a90c9 100%);
+    transform: translateY(-2px);
+  }
+  
+  .auth-button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+  }
+  
+  .auth-footer {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .auth-footer p {
+    margin-bottom: 10px;
+    color: #666;
+  }
+  
+  .auth-footer a {
+    color: #6ca6e2;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+  }
+  
+  .auth-footer a:hover {
+    color: #1c3c74;
+    text-decoration: underline;
+  }
+  
+  .auth-terms {
+    font-size: 12px;
+    color: #999;
+    margin-top: 20px;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .header {
+      flex-direction: column;
+      padding: 1rem;
+      gap: 1rem;
+    }
+    
+    .navbar {
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      width: 100%;
+    }
+    
+    .nav-buttons {
+      margin-left: 0;
+      width: 100%;
+      justify-content: center;
+    }
+    
+    .btn {
+      width: 100%;
+    }
+    
+    .auth-container {
+      padding: 20px 10px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .auth-card {
+      padding: 30px 20px;
+    }
+    
+    .form-options {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 15px;
+    }
+    
+    .auth-button {
+      padding: 12px;
+    }
+    
+    .testimonial-info {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .testimonial-logo {
+      margin-bottom: 0.5rem;
+    }
+  }

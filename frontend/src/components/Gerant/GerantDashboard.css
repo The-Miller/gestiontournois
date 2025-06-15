@@ -1,0 +1,48 @@
+.admin-dashboard {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f9fafb;
+}
+
+.content {
+  flex: 1;
+  padding: 24px;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  background-color: #f5f3ff;
+  padding: 20px 24px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.header-text h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  color: #111827;
+}
+
+.header-description {
+  color: #6b7280;
+  margin: 0;
+  font-size: 14px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .content {
+    padding: 16px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+}

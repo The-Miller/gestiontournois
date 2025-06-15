@@ -1,0 +1,259 @@
+/* Palette de couleurs avec bleu et rouge pour les étoiles */
+:root {
+  --blue-light: #1c3c74; /* Bleu clair */
+  --blue-dark: #6ca6e2; /* Bleu foncé */
+  --white: #ffffff;
+  --gray-light: #f8f9fa;
+  --gray-dark: #333;
+  --error: #f44336; /* Rouge pour les erreurs */
+}
+
+/* Icônes SVG */
+.contact-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 1rem;
+  fill: var(--white);
+}
+
+/* Page container */
+.contact-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Segoe UI', sans-serif;
+  color: var(--gray-dark);
+}
+
+/* Conteneur principal */
+.contact-container {
+  position: relative;
+  flex: 1;
+  padding: 6rem 2rem 4rem;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 80px);
+}
+
+.contact-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7); /* Fond sombre pour améliorer la lisibilité */
+  z-index: 0;
+}
+
+/* Contenu principal */
+.contact-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  max-width: 1200px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.95); /* Légère transparence */
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.contact-content:hover {
+  transform: translateY(-5px);
+}
+
+/* Gradient animé pour la section Contact */
+.contact-info {
+  flex: 1;
+  padding: 3rem;
+  background: linear-gradient(135deg, var(--blue-light), var(--blue-dark)); /* Gradient bleu */
+  background-size: 600% 600%;
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  animation: animated-gradient 15s ease infinite; /* Animation du gradient */
+}
+
+@keyframes animated-gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Style pour le titre et le texte */
+.contact-info h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--white); /* Texte en blanc */
+}
+
+.contact-info p {
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+/* Détails de contact */
+.contact-details {
+  margin-top: 1rem;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  transition: transform 0.2s ease;
+}
+
+.contact-item:hover {
+  transform: scale(1.03);
+}
+
+.contact-item h4 {
+  font-size: 1.2rem;
+  margin-bottom: 0.3rem;
+}
+
+/* Formulaire */
+.contact-form-container {
+  flex: 1;
+  padding: 3rem;
+  background: var(--white);
+}
+
+.contact-form h3 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: var(--blue-dark); /* Titre bleu */
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #555;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.9rem;
+  border: none;
+  border-bottom: 10px  solid #b31717;
+  border: 6px;
+  font-size: 1rem;
+  background-color: var(--gray-light);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--blue-light);
+  box-shadow: 0 0 5px rgba(28, 60, 116, 0.4); /* Bleu clair au focus */
+  outline: none;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* Etoiles pour champs obligatoires */
+.form-group label span {
+  color: var(--error); /* Couleur rouge pour l'étoile */
+  font-weight: bold;
+}
+
+/* Bouton */
+.submit-btn,
+.btn-login {
+  background-color: var(--blue-light);
+  color: var(--white);
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.submit-btn:hover,
+.btn-login:hover {
+  background-color: var(--blue-dark);
+}
+
+/* Messages */
+.error-message {
+  color: var(--error);
+  margin-bottom: 1rem;
+  background: #ffe6e6;
+  border-left: 4px solid var(--error);
+  padding: 0.8rem 1rem;
+  border-radius: 4px;
+}
+
+.success-message {
+  text-align: center;
+  padding: 2rem;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.success-message h3 {
+  color: var(--blue-light);
+  margin-bottom: 1rem;
+}
+
+.success-message p {
+  margin-bottom: 2rem;
+  color: #555;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .contact-container {
+    padding: 5rem 1rem 2rem;
+  }
+
+  .contact-content {
+    flex-direction: column;
+    border-radius: 0;
+  }
+
+  .contact-info,
+  .contact-form-container {
+    padding: 2rem;
+  }
+
+  .contact-info h2 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-info h2 {
+    font-size: 1.8rem;
+  }
+
+  .contact-form h3 {
+    font-size: 1.5rem;
+  }
+}
