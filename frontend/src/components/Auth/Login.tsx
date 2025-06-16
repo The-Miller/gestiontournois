@@ -15,7 +15,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     setError('');
@@ -48,12 +48,15 @@ const Login = () => {
         throw new Error('Réponse du serveur invalide : données manquantes');
       }
     } catch (err) {
-      console.error('Erreur lors de la connexion :', err.response?.data || err.message);
-      setError(
-        err.response?.data?.message ||
-        err.message ||
-        'Identifiants incorrects ou problème de connexion'
-      );
+      // Typage explicite pour err avec une vérification
+      let errorMessage = 'Identifiants incorrects ou problème de connexion';
+      if (err instanceof Error) {
+        errorMessage = err.message;
+      } else if (err && typeof err === 'object' && 'response' in err && err.response?.data?.message) {
+        errorMessage = err.response.data.message;
+      }
+      console.error('Erreur lors de la connexion :', err);
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
